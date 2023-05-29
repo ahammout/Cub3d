@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahammout <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 15:06:47 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 12:49:43 by ahammout         ###   ########.fr       */
+/*   Created: 2021/11/05 20:47:58 by ahammout          #+#    #+#             */
+/*   Updated: 2021/11/11 01:13:39 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+int	ft_toupper(int c)
 
-# include<unistd.h>
-# include<stdlib.h>
-# include<fcntl.h>
-#include"../libft/libft.h"
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-#endif
+{
+	if (c >= 97 && c <= 122)
+		c -= 32;
+	return (c);
+}

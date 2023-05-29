@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahammout <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 15:06:47 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 12:49:43 by ahammout         ###   ########.fr       */
+/*   Created: 2021/11/04 11:28:24 by ahammout          #+#    #+#             */
+/*   Updated: 2021/11/24 11:43:39 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include<unistd.h>
-# include<stdlib.h>
-# include<fcntl.h>
-#include"../libft/libft.h"
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
+int	ft_isalnum(int a)
 
-char	*get_next_line(int fd);
-#endif
+{
+	if ((ft_isalpha(a) == 1) || (ft_isdigit(a) == 1))
+		return (1);
+	return (0);
+}

@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahammout <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 15:06:47 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 12:49:43 by ahammout         ###   ########.fr       */
+/*   Created: 2021/11/05 12:35:55 by ahammout          #+#    #+#             */
+/*   Updated: 2021/11/11 13:11:43 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+size_t	ft_strlcpy(char *dst, const char *src, size_t len)
+{
+	size_t	i;
 
-# include<unistd.h>
-# include<stdlib.h>
-# include<fcntl.h>
-#include"../libft/libft.h"
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-#endif
+	i = 0;
+	if (len > 0)
+	{
+		while (src[i] && i < len - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (ft_strlen(src));
+}

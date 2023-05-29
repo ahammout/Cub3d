@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahammout <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 15:06:47 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 12:49:43 by ahammout         ###   ########.fr       */
+/*   Created: 2021/11/06 11:06:31 by ahammout          #+#    #+#             */
+/*   Updated: 2021/11/20 13:19:19 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+char	*ft_strchr(const char *s, int c)
+{
+	unsigned char	*ptr;
+	int				i;
 
-# include<unistd.h>
-# include<stdlib.h>
-# include<fcntl.h>
-#include"../libft/libft.h"
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-#endif
+	i = 0;
+	ptr = (unsigned char *)s;
+	while (ptr[i] != (unsigned char)c)
+	{
+		if (ptr[i] == '\0')
+			return (0);
+		i++;
+	}
+	return ((char *)ptr + i);
+}

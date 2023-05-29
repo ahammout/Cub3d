@@ -6,7 +6,7 @@
 #    By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 14:50:41 by ahammout          #+#    #+#              #
-#    Updated: 2023/05/29 00:56:42 by ahammout         ###   ########.fr        #
+#    Updated: 2023/05/29 12:42:28 by ahammout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ LIBFT = libft/libft.a
 
 SRCS =	srcs/main.c \
 		srcs/parser.c \
+		srcs/tools.c \
+		get_next_line/get_next_line.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -32,11 +34,11 @@ all : $(NAME)
 
 $(NAME) : $(INCLUDES) $(OBJS)
 	@make -C libft
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT)   -o $(NAME)
 
 clean:
 	@make fclean -C libft
-	@rm $(OBJS)
+	@rm -fr $(OBJS)
 
 fclean: clean
 	@make fclean -C libft

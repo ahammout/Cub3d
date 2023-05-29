@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 19:15:56 by ahammout         ###   ########.fr       */
+/*   Created: 2021/11/04 11:14:07 by ahammout          #+#    #+#             */
+/*   Updated: 2023/05/29 17:01:32 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/cub3d.h"
+#include"libft.h"
 
-int main(int ac, char **av)
+int	ft_isdigit(int n)
 {
-    if (ac == 2)
-    {
-        parser(av);
-        printf ("The map name: %s\n", av[1]);
-    }
-    else
-        return (printf("Error\n[USAGE]: ./Cub3d [map location]\n") , -1);
-    return (0);
+	if (n >= 48 && n <= 57)
+		return (1);
+	return (0);
 }

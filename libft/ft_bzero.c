@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 19:15:56 by ahammout         ###   ########.fr       */
+/*   Created: 2021/11/04 15:38:38 by ahammout          #+#    #+#             */
+/*   Updated: 2023/04/10 14:54:23 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/cub3d.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+void	ft_bzero(void *s, size_t n)
+
 {
-    if (ac == 2)
-    {
-        parser(av);
-        printf ("The map name: %s\n", av[1]);
-    }
-    else
-        return (printf("Error\n[USAGE]: ./Cub3d [map location]\n") , -1);
-    return (0);
+	unsigned char	*ptr;
+
+	ptr = s;
+	while (n-- > 0)
+		*ptr++ = '\0';
 }

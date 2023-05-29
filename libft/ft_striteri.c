@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahammout <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 15:06:47 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 12:49:43 by ahammout         ###   ########.fr       */
+/*   Created: 2021/11/18 17:17:20 by ahammout          #+#    #+#             */
+/*   Updated: 2021/11/20 21:23:02 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+void	ft_striteri(char *s, void (*f) (unsigned int, char*))
+{
+	unsigned int	i;
 
-# include<unistd.h>
-# include<stdlib.h>
-# include<fcntl.h>
-#include"../libft/libft.h"
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
-
-char	*get_next_line(int fd);
-#endif
+	i = 0;
+	if (!s || !f)
+		return ;
+	while (s[i])
+	{
+		f(i, s + i);
+		i ++;
+	}
+}

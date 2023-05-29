@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 19:15:56 by ahammout         ###   ########.fr       */
+/*   Created: 2021/11/10 13:29:23 by ahammout          #+#    #+#             */
+/*   Updated: 2023/04/03 02:29:38 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/cub3d.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+void	*ft_calloc(size_t count, size_t size)
 {
-    if (ac == 2)
-    {
-        parser(av);
-        printf ("The map name: %s\n", av[1]);
-    }
-    else
-        return (printf("Error\n[USAGE]: ./Cub3d [map location]\n") , -1);
-    return (0);
+	char	*mem;
+	size_t	i;
+
+	mem = malloc(count * size);
+	if (!mem)
+		return (mem);
+	i = 0;
+	while (i < (count * size))
+	{
+		mem[i] = 0;
+		i++;
+	}
+	return (mem);
 }
