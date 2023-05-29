@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/28 16:26:20 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/05/29 00:59:05 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int main(int ac, char **av)
         printf ("The map name: %s\n", av[1]);
     }
     else
-        return (perror("[ USAGE ]: ./Cub3d [map location]") , -1);
+        return (printf("Error\n[USAGE]: ./Cub3d [map location]\n") , -1);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/28 18:50:53 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/05/29 01:39:36 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
     
 // }
 
-void    check_line(char *line, t_list ptr)
-{
+// void    check_line(char *line, t_list ptr)
+// {
     
-}
+// }
 
 t_list  file_to_list(int map_fd)
 {
@@ -50,7 +50,7 @@ t_list  file_to_list(int map_fd)
     return (map);
 }
 
-char    **map_handler(char **av)
+int    **map_handler(char **av)
 {
     t_list  map;
     int     **map_table;
@@ -63,7 +63,7 @@ char    **map_handler(char **av)
         exit (EXIT_FAILURE);
     }
     map = file_to_list(map_fd);
-    map_table = list_to_table(map);
+    // map_table = list_to_table(map);
     //-----------------------------
     return (map_table);
     

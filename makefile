@@ -6,7 +6,7 @@
 #    By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 14:50:41 by ahammout          #+#    #+#              #
-#    Updated: 2023/05/28 18:53:00 by ahammout         ###   ########.fr        #
+#    Updated: 2023/05/29 00:56:42 by ahammout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = Cub3d
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 
 INCLUDES = includes/cub3d.h
 
