@@ -6,13 +6,13 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:52:13 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/03 19:46:06 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/03 23:46:03 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
 
-void    add_node(t_data *data, int *index_ptr, t_map *ptr)
+void    add_node(t_data *data, int *index_ptr, t_map **ptr)
 {
     t_map  *node;
     if (*index_ptr == 0)
@@ -25,7 +25,7 @@ void    add_node(t_data *data, int *index_ptr, t_map *ptr)
         data->lmap->line = NULL;
         data->lmap->next = NULL;
         data->lmap->prev = NULL;
-        ptr = data->lmap;
+        *ptr = data->lmap;
     }
     else if (*index_ptr > 0)
     {

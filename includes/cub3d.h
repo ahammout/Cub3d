@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/03 19:46:16 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/03 23:46:53 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct  s_data
 }               t_data;
 
 bool    parser(char **av, t_data *data);
-void    add_node(t_data *data, int *index_ptr, t_map *ptr);
+void    add_node(t_data *data, int *index_ptr, t_map **ptr);
 char    **str_to_2d(t_data *data, char *line);
 
 

@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/03 19:47:05 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/03 23:45:42 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ bool file_to_list(int map_fd, t_data *data)
     node_index = 0;
     while (line)
     {
-        add_node(data, &node_index, ptr);
+        add_node(data, &node_index, &ptr);
         free(line);
         line = get_next_line(map_fd);
         printf("%s\n", line);
@@ -248,7 +248,7 @@ bool    parser(char **av, t_data *data)
     }
     file_to_list(map_fd, data);
     display_list(data->lmap);
-    display_table(data->map);
+    // display_table(data->map);
     printf ("End of parser\n");
     //-----------------------------
     return (true);
