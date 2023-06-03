@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/02 11:29:48 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:46:16 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include<stdio.h>
 #include<fcntl.h>
 #include<stdlib.h>
-#include <stdbool.h>
+#include<stdbool.h>
+#include<stdlib.h>
 #include"../get_next_line/get_next_line.h"
 #include"../libft/libft.h"
 
@@ -36,23 +37,30 @@ typedef struct  s_map
     char    *line;
     int     type;
     int     index;
-    struct  s_list *next;
-    struct  s_list *prev;
+    struct  s_map *next;
+    struct  s_map *prev;
 }               t_map;
 
 
 typedef struct  s_data
 {
-    t_map   lmap;
-    int     **map;
+    t_map   *lmap;
+    char    **map;
 }               t_data;
 
 bool    parser(char **av, t_data *data);
+void    add_node(t_data *data, int *index_ptr, t_map *ptr);
+char    **str_to_2d(t_data *data, char *line);
 
 
 //////////////////////// Tools ////////////////////////////////
+void    exit_error(t_data *data, int fr, char *err);
 int     is_whitespace(char c);
 int     white_check(char *str);
 int     all_isdigit(char *str);
+int     ft_2dstrlen(char **str2d);
+void    free_map_list(t_data *data);
+void    display_list(t_map *list);
+void    display_table(char **table);
 
 #endif

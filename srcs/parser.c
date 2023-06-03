@@ -6,32 +6,21 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/02 11:36:38 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:47:05 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
-
-// void    add_node(t_list map, int *new_node)
-// {
-//     t_list  node;
-
-//     if (new_node == 0)
-//     {
-        
-//     }
-    
-// }
 
 int direction_identifier(char *line)
 {
     int i;
 
     i = 0;
-    if (line[i] == 'S' && line[i + 1] == 'O' && is_whitespace(line[i + 2]) \
-        || line[i] == 'W' && line[i + 1] == 'E' && is_whitespace(line[i + 2]) \
-        || line[i] == 'N' && line[i + 1] == 'O' && is_whitespace(line[i + 2]) \
-        || line[i] == 'E' && line[i + 1] == 'A' && is_whitespace(line[i + 2]))
+    if ((line[i] == 'S' && line[i + 1] == 'O' && is_whitespace(line[i + 2])) \
+        || (line[i] == 'W' && line[i + 1] == 'E' && is_whitespace(line[i + 2])) \
+        || (line[i] == 'N' && line[i + 1] == 'O' && is_whitespace(line[i + 2])) \
+        || (line[i] == 'E' && line[i + 1] == 'A' && is_whitespace(line[i + 2])))
     {
         return (1);
     }
@@ -117,27 +106,22 @@ int direction_handler(char *line)
     
 }
 
-// int map_handler(char *line)
-// {
-    
-// }
-
-int is_map_begin(char *line)
+int fl_line (char *line)
 {
     int i;
-    char *comps = "NSEA10";
 
     i = 0;
-    comps = ft_strdup("NSEA10");
     while (line[i])
     {
-        if ()
+        if (line[i] != ' ' || line[i] != '\t' || line[i] != '1' || line[i] != '\n' || line[i] != '\0')
+            return (0);
         i++;
     }
+    return (1);
 }
 
 /// Function returns 0 in case of line validation, and returns -1 in case of error
-int    check_line(char *line, t_map ptr)
+int    check_line(char *line, t_data *data, t_map *ptr)
 {
     int i;
 
@@ -148,51 +132,107 @@ int    check_line(char *line, t_map ptr)
     {
         if (direction_handler(line + i) != 1)
         {
-            ft_putstr_fd("Cub3d: Invalid identifier or path", 2);
-            exit (EXIT_FAILURE);
+            data->lmap = ptr;
+            exit_error(data, 1, "Cub3d: Invalid identifier or path");
+        }
+        else
+        {
+            data->lmap->line = ft_strdup(line + i);
+            // type
         }
     }
     else if ((line[i] == C || line[i] == F) && is_whitespace(line[i + 1]))
     {
         if (floor_ceiling_handler(line + i) == -1)
-            exit (EXIT_FAILURE);
+        {
+            data->lmap = ptr;
+            exit_error(data, 1, NULL);
+        }
+        else
+        {
+            data->lmap->line = ft_strdup(line + i);
+            /// type 
+        }
     }
-    else if (is_map_begin(line + i))
-    {
-        if (map_handler(line + i) == -1)
-            exit (EXIT_FAILURE);
-    }
+    else if (fl_line(line + i))
+        return (1);
     else if (white_check(line + i))
     {
-        ft_putstr_fd("Cub3d: Invalid identifier or path", 2);
-        exit (EXIT_FAILURE);
+        data->lmap = ptr;
+        exit_error(data, 1, "Cub3d: Invalid identifier or path");
     }
     return (0);
-    
 }
 
-bool
-
-bool file_to_list(int map_fd, t_data *data)
+int check_map(char *line)
 {
-    t_map   ptr;
-    char     *line;
-    int     new_node;
+    char    *comps;
+    int     i;
+    int     j;
 
-    init_data(data);
-    new_node = 0;
+    i = 0;
+    j = 0;
+    comps = ft_strdup("SWNA01 ");
+    /// EMPTY LINE INSIDE THE MAP
+    if (white_check(line) == 0)
+        return (-1);
+    while (line[i])
+    {
+        while (comps[j])
+        {
+            if (line[i] != comps[j])
+                return (-1);
+            j++;
+        }
+        i++;
+    }
+    return (0);
+}
+
+void map_handler(t_data *data, int map_fd)
+{
+    char    *line;
+
     line = ft_strdup("");
-    ptr = data->lmap;
     while (line)
     {
         free(line);
         line = get_next_line(map_fd);
-        printf("%s\n", line);
-        check_line (line, ptr);
-        // add_node(map, &new_node);
-        // map.line = ft_strdup(line);
+        if (check_map(line) == -1)
+            exit_error(data, 1, NULL);
+        data->map = str_to_2d(data, line);
     }
-    // map = ptr;
+    if (fl_line(data->map[ft_2dstrlen(data->map) - 1]) == -1)
+        exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
+}
+
+bool file_to_list(int map_fd, t_data *data)
+{
+    t_map   *ptr;
+    char     *line;
+    int     node_index;
+
+    line = ft_strdup("");
+    ptr = NULL;
+    node_index = 0;
+    while (line)
+    {
+        add_node(data, &node_index, ptr);
+        free(line);
+        line = get_next_line(map_fd);
+        printf("%s\n", line);
+        if (check_line (line, data, ptr) == 0)
+            break;
+        node_index++;
+    }
+    data->lmap = ptr;
+    if (fl_line(line))
+    {
+        data->map = str_to_2d(data, line);
+        free(line);
+        map_handler(data, map_fd);
+    }
+    printf ("The map was parsed seccussfully");
     return (true);
 }
 
@@ -207,8 +247,9 @@ bool    parser(char **av, t_data *data)
         exit (EXIT_FAILURE);
     }
     file_to_list(map_fd, data);
-    // Last_map_check.
-    // map_table = list_to_table(map);
+    display_list(data->lmap);
+    display_table(data->map);
+    printf ("End of parser\n");
     //-----------------------------
     return (true);
     

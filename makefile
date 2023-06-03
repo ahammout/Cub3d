@@ -6,7 +6,7 @@
 #    By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 14:50:41 by ahammout          #+#    #+#              #
-#    Updated: 2023/05/29 12:42:28 by ahammout         ###   ########.fr        #
+#    Updated: 2023/06/03 18:09:11 by ahammout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = Cub3d
 
 CC = cc
 
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 INCLUDES = includes/cub3d.h
 
@@ -28,13 +28,13 @@ SRCS =	srcs/main.c \
 OBJS = $(SRCS:.c=.o)
 
 %.o : %.c $(INCLUDES)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all : $(NAME)
 
 $(NAME) : $(INCLUDES) $(OBJS)
 	@make -C libft
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT)   -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT)   -o $(NAME)
 
 clean:
 	@make fclean -C libft
