@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 19:15:56 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:08:02 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int main(int ac, char **av)
 {
+    t_data  data;
+
     if (ac == 2)
     {
-        parser(av);
+        parser(av, &data);
         printf ("The map name: %s\n", av[1]);
     }
     else

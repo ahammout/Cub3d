@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 17:38:43 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:29:48 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include<stdio.h>
 #include<fcntl.h>
 #include<stdlib.h>
+#include <stdbool.h>
 #include"../get_next_line/get_next_line.h"
 #include"../libft/libft.h"
 
@@ -30,17 +31,23 @@
 #define WL '1'
 #define EM '0'
 
-
-typedef struct  s_list
+typedef struct  s_map
 {
     char    *line;
     int     type;
     int     index;
     struct  s_list *next;
     struct  s_list *prev;
-}               t_list;
+}               t_map;
 
-int **parser(char **av);
+
+typedef struct  s_data
+{
+    t_map   lmap;
+    int     **map;
+}               t_data;
+
+bool    parser(char **av, t_data *data);
 
 
 //////////////////////// Tools ////////////////////////////////

@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/05/29 19:32:48 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/02 11:36:38 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,10 @@ int direction_handler(char *line)
     
 }
 
-int map_handler(char *line)
-{
+// int map_handler(char *line)
+// {
     
-}
+// }
 
 int is_map_begin(char *line)
 {
@@ -137,7 +137,7 @@ int is_map_begin(char *line)
 }
 
 /// Function returns 0 in case of line validation, and returns -1 in case of error
-int    check_line(char *line, t_list ptr)
+int    check_line(char *line, t_map ptr)
 {
     int i;
 
@@ -171,16 +171,18 @@ int    check_line(char *line, t_list ptr)
     
 }
 
-t_list  file_to_list(int map_fd)
+bool
+
+bool file_to_list(int map_fd, t_data *data)
 {
-    t_list  map;
-    t_list  ptr;
-    char    *line;
+    t_map   ptr;
+    char     *line;
     int     new_node;
 
+    init_data(data);
     new_node = 0;
     line = ft_strdup("");
-    ptr = map;
+    ptr = data->lmap;
     while (line)
     {
         free(line);
@@ -191,13 +193,11 @@ t_list  file_to_list(int map_fd)
         // map.line = ft_strdup(line);
     }
     // map = ptr;
-    return (map);
+    return (true);
 }
 
-int    **parser(char **av)
+bool    parser(char **av, t_data *data)
 {
-    t_list  map;
-    int     **map_table;
     int     map_fd;
 
     map_fd = open(av[1], O_RDONLY);
@@ -206,10 +206,10 @@ int    **parser(char **av)
         perror("Cub3d");
         exit (EXIT_FAILURE);
     }
-    map = file_to_list(map_fd);
+    file_to_list(map_fd, data);
     // Last_map_check.
     // map_table = list_to_table(map);
     //-----------------------------
-    return (map_table);
+    return (true);
     
 }
