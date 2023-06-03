@@ -6,7 +6,7 @@
 #    By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 14:50:41 by ahammout          #+#    #+#              #
-#    Updated: 2023/06/03 18:09:11 by ahammout         ###   ########.fr        #
+#    Updated: 2023/06/04 00:50:51 by ahammout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ LIBFT = libft/libft.a
 
 SRCS =	srcs/main.c \
 		srcs/parser.c \
+		srcs/parser_tools.c \
 		srcs/tools.c \
 		get_next_line/get_next_line.c \
 

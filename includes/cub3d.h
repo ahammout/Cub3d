@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/03 23:46:53 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:56:30 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,17 @@ typedef struct  s_data
 bool    parser(char **av, t_data *data);
 void    add_node(t_data *data, int *index_ptr, t_map **ptr);
 char    **str_to_2d(t_data *data, char *line);
+int     fl_line (char *line);
+int     check_line(char *line, t_data *data, t_map *ptr);
+int     check_map(char *line);
 
+int direction_identifier(char *line);
+int find_comma(char *line);
+int get_color(char *line);
+int floor_ceiling_handler(char *line);
+int direction_handler(char *line);
+void map_handler(t_data *data, int map_fd);
+bool handle_file(int map_fd, t_data *data);
 
 //////////////////////// Tools ////////////////////////////////
 void    exit_error(t_data *data, int fr, char *err);

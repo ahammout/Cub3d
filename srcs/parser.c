@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/03 23:45:42 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:55:36 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,89 +106,6 @@ int direction_handler(char *line)
     
 }
 
-int fl_line (char *line)
-{
-    int i;
-
-    i = 0;
-    while (line[i])
-    {
-        if (line[i] != ' ' || line[i] != '\t' || line[i] != '1' || line[i] != '\n' || line[i] != '\0')
-            return (0);
-        i++;
-    }
-    return (1);
-}
-
-/// Function returns 0 in case of line validation, and returns -1 in case of error
-int    check_line(char *line, t_data *data, t_map *ptr)
-{
-    int i;
-
-    i = 0;
-    while (line[i] == ' ' || line[i] == '\t')
-        i++;
-    if (direction_identifier(line + i))
-    {
-        if (direction_handler(line + i) != 1)
-        {
-            data->lmap = ptr;
-            exit_error(data, 1, "Cub3d: Invalid identifier or path");
-        }
-        else
-        {
-            data->lmap->line = ft_strdup(line + i);
-            // type
-        }
-    }
-    else if ((line[i] == C || line[i] == F) && is_whitespace(line[i + 1]))
-    {
-        if (floor_ceiling_handler(line + i) == -1)
-        {
-            data->lmap = ptr;
-            exit_error(data, 1, NULL);
-        }
-        else
-        {
-            data->lmap->line = ft_strdup(line + i);
-            /// type 
-        }
-    }
-    else if (fl_line(line + i))
-        return (1);
-    else if (white_check(line + i))
-    {
-        data->lmap = ptr;
-        exit_error(data, 1, "Cub3d: Invalid identifier or path");
-    }
-    return (0);
-}
-
-int check_map(char *line)
-{
-    char    *comps;
-    int     i;
-    int     j;
-
-    i = 0;
-    j = 0;
-    comps = ft_strdup("SWNA01 ");
-    /// EMPTY LINE INSIDE THE MAP
-    if (white_check(line) == 0)
-        return (-1);
-    while (line[i])
-    {
-        while (comps[j])
-        {
-            if (line[i] != comps[j])
-                return (-1);
-            j++;
-        }
-        i++;
-    }
-    return (0);
-}
-
 void map_handler(t_data *data, int map_fd)
 {
     char    *line;
@@ -206,7 +123,7 @@ void map_handler(t_data *data, int map_fd)
         exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
 }
 
-bool file_to_list(int map_fd, t_data *data)
+bool handle_file(int map_fd, t_data *data)
 {
     t_map   *ptr;
     char     *line;
@@ -220,9 +137,11 @@ bool file_to_list(int map_fd, t_data *data)
         add_node(data, &node_index, &ptr);
         free(line);
         line = get_next_line(map_fd);
-        printf("%s\n", line);
-        if (check_line (line, data, ptr) == 0)
+        if (check_line (line, data, ptr))
+        {
+            printf ("Breaks here, nodes filled: %d\n", node_index);
             break;
+        }
         node_index++;
     }
     data->lmap = ptr;
@@ -246,7 +165,7 @@ bool    parser(char **av, t_data *data)
         perror("Cub3d");
         exit (EXIT_FAILURE);
     }
-    file_to_list(map_fd, data);
+    handle_file(map_fd, data);
     display_list(data->lmap);
     // display_table(data->map);
     printf ("End of parser\n");

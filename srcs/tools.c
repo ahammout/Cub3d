@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:52:13 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/03 23:46:03 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/04 00:44:40 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void    add_node(t_data *data, int *index_ptr, t_map **ptr)
 {
     t_map  *node;
+
     if (*index_ptr == 0)
     {
         data->map = NULL;
@@ -33,6 +34,7 @@ void    add_node(t_data *data, int *index_ptr, t_map **ptr)
 
         node->index = *index_ptr;
         node->line = NULL;
+        node->next = NULL;
         data->lmap->next = node;
         data->lmap = data->lmap->next;
     } 
