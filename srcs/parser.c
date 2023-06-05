@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/04 00:55:36 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/05 18:50:48 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,6 @@ int direction_identifier(char *line)
     return (0);
 }
 
-int find_comma(char *line)
-{
-    int i;
-
-    i = 0;
-    while (line[i] != ',' && line[i] != ' ' && line[i] != '\n' && line[i] != '\0')
-        i++;
-    return (i);
-}
-
 int get_color(char *line)
 {
     int     color;
@@ -45,46 +35,15 @@ int get_color(char *line)
 
     i = 0;
     str = ft_substr(line, 0, find_comma(line));
-    printf ("the number: %s.\n", str);
     if (all_isdigit(str))
         color = ft_atoi(str);
     else
         color = -1;
+    free(str);
     return (color);
 }
 
-int floor_ceiling_handler(char *line)
-{
-    int i;
-    int color;
-    int vals;
-    int comma;
 
-    i = 0;
-    vals = 0;
-    while (line[i])
-    {
-        comma = 0;
-        while (line[i] != ',' && line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
-            i++;
-        while (line[i] && (line[i] == ',' || line[i] == ' ' || line[i] == '\t'))
-        {
-            if (line[i] == ',')
-                comma++;
-            if (comma > 1)
-                return (ft_putstr_fd("Cub3d: Multiple commas between RGB values", 2), -1);
-            i++;
-        }
-        if (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
-        {
-            vals ++;
-            color = get_color(line + i);
-            if (!(color >= 0 && color <= 255) || (vals > 3) || color == -1)
-                return (ft_putstr_fd ("Cub3d: RGB out of the range", 2), -1);
-        }
-    }
-    return (0);
-}
 
 int direction_handler(char *line)
 {
@@ -103,27 +62,62 @@ int direction_handler(char *line)
             path++;
     }
     return (path);
-    
 }
 
-void map_handler(t_data *data, int map_fd)
+void    build_map(t_data *data, char *line)
+{
+    int i;
+    int j;
+    int s;
+
+    i = 0;
+    s = 0;
+    j = 0;
+    while (line[i])
+    {
+        if (line[i] == '\n')
+            s++;   
+        i++;
+    }
+    i = 0;
+    data->map = malloc(sizeof(char *) * s + 1);
+    while(line[i])
+    {
+        data->map[j] = ft_substr(line + i, 0, find_char(line + i, '\n'));
+        i += (find_char(line + i, '\n') + 1);
+        j++;
+    }
+    data->map[j] = NULL;
+}
+
+void map_handler(t_data *data, int map_fd, char *holder)
 {
     char    *line;
+    char    *to_free;
+    int     i;
 
     line = ft_strdup("");
+    // printf("GET INTO THE MAP HANDLER\n");
+    i = 0;
     while (line)
     {
         free(line);
         line = get_next_line(map_fd);
         if (check_map(line) == -1)
             exit_error(data, 1, NULL);
-        data->map = str_to_2d(data, line);
+        // if line is Valid: join it with prev holder, PB: use ft_strjoin_free(char *)
+        to_free = holder;
+        holder = ft_strjoin(holder, line);
+        if (line)
+            free(to_free);
+        i++;
     }
-    if (fl_line(data->map[ft_2dstrlen(data->map) - 1]) == -1)
+    build_map(data, holder);
+    if (!fl_line(data->map[ft_2dstrlen(data->map) - 1]))
         exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
 }
 
-bool handle_file(int map_fd, t_data *data)
+void handle_file(int map_fd, t_data *data)
 {
     t_map   *ptr;
     char     *line;
@@ -137,22 +131,14 @@ bool handle_file(int map_fd, t_data *data)
         add_node(data, &node_index, &ptr);
         free(line);
         line = get_next_line(map_fd);
-        if (check_line (line, data, ptr))
-        {
-            printf ("Breaks here, nodes filled: %d\n", node_index);
+        if (check_elements(line, data, ptr))
             break;
-        }
         node_index++;
     }
     data->lmap = ptr;
     if (fl_line(line))
-    {
-        data->map = str_to_2d(data, line);
-        free(line);
-        map_handler(data, map_fd);
-    }
-    printf ("The map was parsed seccussfully");
-    return (true);
+        map_handler(data, map_fd, line);
+    // printf ("The map was parsed seccussfully");
 }
 
 bool    parser(char **av, t_data *data)
@@ -167,8 +153,8 @@ bool    parser(char **av, t_data *data)
     }
     handle_file(map_fd, data);
     display_list(data->lmap);
-    // display_table(data->map);
-    printf ("End of parser\n");
+    display_table(data->map);
+    // printf ("End of parser\n");
     //-----------------------------
     return (true);
     

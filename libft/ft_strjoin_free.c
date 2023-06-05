@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 11:03:16 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/05 17:30:18 by ahammout         ###   ########.fr       */
+/*   Created: 2023/06/05 15:42:13 by ahammout          #+#    #+#             */
+/*   Updated: 2023/06/05 16:43:05 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin_free(char *s1, char *s2)
 {
-	unsigned int	i;
-	unsigned int	j;
-	char			*substring;
+	size_t	i;
+	size_t	j;
+	char	*newstr;
 
 	i = 0;
 	j = 0;
-	if (s == NULL)
-		return (NULL);
-	if (ft_strlen(s + start) < len)
-		len = ft_strlen(s + start);
-	substring = (char *)malloc(sizeof (char) * (len) + 1);
-	if (!substring)
+	if (!s2)
+		return ((char *)s1);
+	newstr = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!newstr)
 		return (0);
-	while (s[i])
+	while (s1[j])
 	{
-		if (i >= start && j < len)
-		{
-			substring[j] = s[i];
-			j ++;
-		}
-		i ++;
+		newstr[j] = s1[j];
+		j++;
 	}
-	substring[j] = '\0';
-	return (substring);
+	while (s2[i])
+	{
+		newstr[ft_strlen(s1) + i] = s2[i];
+		i++;
+	}
+    free(s1);
+	newstr[ft_strlen(s1) + i] = '\0';
+	return (newstr);
 }

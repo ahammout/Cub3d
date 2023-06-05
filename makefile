@@ -6,7 +6,7 @@
 #    By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 14:50:41 by ahammout          #+#    #+#              #
-#    Updated: 2023/06/04 00:50:51 by ahammout         ###   ########.fr        #
+#    Updated: 2023/06/05 18:15:08 by ahammout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = Cub3d
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 
 INCLUDES = includes/cub3d.h
 
@@ -24,6 +24,7 @@ SRCS =	srcs/main.c \
 		srcs/parser.c \
 		srcs/parser_tools.c \
 		srcs/tools.c \
+		srcs/parser_analyzer.c \
 		get_next_line/get_next_line.c \
 
 OBJS = $(SRCS:.c=.o)
