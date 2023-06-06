@@ -6,23 +6,23 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/05 18:49:04 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/05 20:33:43 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
 
 
-void    f()
-{
-    system("leaks Cub3d");
-}
+// void    f()
+// {
+//     system("leaks Cub3d");
+// }
 
 int main(int ac, char **av)
 {
     t_data  data;
 
-    atexit(f);
+    // atexit(f);
     if (ac == 2)
     {
         data.map = NULL;

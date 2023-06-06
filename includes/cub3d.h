@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/05 18:48:53 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 00:49:44 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct  s_data
 
 bool    parser(char **av, t_data *data);
 void    add_node(t_data *data, int *index_ptr, t_map **ptr);
-int     fl_line (char *line);
+int     is_wall (char *line);
 void    handle_file(int map_fd, t_data *data);
 void    map_handler(t_data *data, int map_fd, char *holder);
 int     direction_identifier(char *line);

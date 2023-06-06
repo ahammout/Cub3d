@@ -6,13 +6,13 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:15:23 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/05 18:56:30 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 00:55:50 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
 
-int fl_line (char *line)
+int is_wall (char *line)
 {
     int i;
 
@@ -81,13 +81,8 @@ int check_map(char *line)
     if (!line)
         return (0);
     comps = ft_strdup("\nSWNA01 ");
-    /// EMPTY LINE INSIDE THE MAP
     if (empty_line(line))
         return (ft_putstr_fd("Cub3d: Impty line inside the map", 2), -1);
-    // while (line[i] != ' ' && line[i] != '\t')
-    //     i++;
-    // if (line[i] != '1')
-    //     return (ft_putstr_fd("Cub3d: Map must be surrounded by walls", 2), -1);
     while (line[i])
     {
         j = 0;
@@ -98,11 +93,9 @@ int check_map(char *line)
             j++;
         }
         if (!comps[j])
-        return (ft_putstr_fd("Cub3d: Invalid comp", 2), -1);
+            return (ft_putstr_fd("Cub3d: Invalid comp", 2), -1);
         i++;
     }
-    // if (line[i - 1] != '1')
-    //     return (ft_putstr_fd("Cub3d: Map must be surrounded by walls", 2), -1);
     return (0);
 }
 
@@ -140,8 +133,7 @@ int    check_elements(char *line, t_data *data, t_map *ptr)
             /// type 
         }
     }
-    /// THIS CASE IS ABOUT CHECK THE WEN THE MAP BEGINS!!
-    else if (fl_line(line + i))
+    else if (is_wall(line + i))
         return (1);
     else if (!empty_line(line + i))
     {

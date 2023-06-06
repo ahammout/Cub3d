@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/05 18:50:48 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 00:48:38 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void map_handler(t_data *data, int map_fd, char *holder)
         line = get_next_line(map_fd);
         if (check_map(line) == -1)
             exit_error(data, 1, NULL);
-        // if line is Valid: join it with prev holder, PB: use ft_strjoin_free(char *)
         to_free = holder;
         holder = ft_strjoin(holder, line);
         if (line)
@@ -113,7 +112,7 @@ void map_handler(t_data *data, int map_fd, char *holder)
         i++;
     }
     build_map(data, holder);
-    if (!fl_line(data->map[ft_2dstrlen(data->map) - 1]))
+    if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]))
         exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
 }
 
@@ -128,17 +127,17 @@ void handle_file(int map_fd, t_data *data)
     node_index = 0;
     while (line)
     {
-        add_node(data, &node_index, &ptr);
         free(line);
         line = get_next_line(map_fd);
+        if (!empty_line(line))
+            add_node(data, &node_index, &ptr);
         if (check_elements(line, data, ptr))
             break;
         node_index++;
     }
     data->lmap = ptr;
-    if (fl_line(line))
-        map_handler(data, map_fd, line);
-    // printf ("The map was parsed seccussfully");
+    if (is_wall(line))
+        map_handler(data, map_fd, line);    
 }
 
 bool    parser(char **av, t_data *data)
