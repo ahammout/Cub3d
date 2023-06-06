@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 03:55:45 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 18:18:33 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 typedef struct  s_info
 {
     char    **elem;
-    int     type;
+    char    *type;
     int     index;
     struct  s_info *next;
     struct  s_info *prev;
@@ -49,13 +49,15 @@ typedef struct  s_data
 }               t_data;
 
 bool    parser(char **av, t_data *data);
-void    add_node(t_data *data, int *index_ptr, t_map **ptr);
+void    add_node(t_data *data, int *index_ptr, t_info **ptr);
 int     is_wall (char *line);
 void    handle_file(int map_fd, t_data *data);
 void    handle_map(t_data *data, int map_fd, char *holder);
-int     handle_elements(char *line, t_data *data, t_map *ptr);
-int     direction_identifier(char *line);
-int     check_fc(char *line);
+int     handle_elements(char *line, t_data *data, t_info *ptr);
+void    parse_directions(t_data *data, char *line, t_info *ptr);
+int     direction_identifier(t_data *data, char *line);
+void    parse_fc(t_data *data, char *line, t_info *ptr);
+int     check_fc(t_data *data, char *line);
 int     check_path(char *line);
 int     direction_handler(char *line);
 int     check_map(char *line);
@@ -75,7 +77,7 @@ int     empty_line(char *str);
 int     all_isdigit(char *str);
 int     ft_2dstrlen(char **str2d);
 void    free_map_list(t_data *data);
-void    display_list(t_map *list);
+void    display_list(t_info *list);
 void    display_table(char **table);
 
 #endif

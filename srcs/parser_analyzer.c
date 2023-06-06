@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:15:23 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 03:39:13 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:44:30 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,84 +26,6 @@ int is_wall (char *line)
         i++;
     }
     return (1);
-}
-
-int get_color(char *line)
-{
-    int     color;
-    char    *str;
-    int     i;
-
-    i = 0;
-    str = ft_substr(line, 0, find_comma(line));
-    if (all_isdigit(str))
-        color = ft_atoi(str);
-    else
-        color = -1;
-    free(str);
-    return (color);
-}
-
-int find_comma(char *line)
-{
-    int i;
-
-    i = 0;
-    while (line[i] != ',' && line[i] != ' ' && line[i] != '\n' && line[i] != '\0')
-        i++;
-    return (i);
-}
-
-int check_fc(char *line)
-{
-    int i;
-    int color;
-    int vals;
-    int comma;
-
-    i = 0;
-    vals = 0;
-    while (line[i])
-    {
-        comma = 0;
-        while (line[i] != ',' && line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
-            i++;
-        while (line[i] && (line[i] == ',' || line[i] == ' ' || line[i] == '\t'))
-        {
-            if (line[i] == ',')
-                comma++;
-            if (comma > 1)
-                return (ft_putstr_fd("Cub3d: Multiple commas between RGB values", 2), -1);
-            i++;
-        }
-        if (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
-        {
-            vals ++;
-            color = get_color(line + i);
-            if (!(color >= 0 && color <= 255) || (vals > 3) || color == -1)
-                return (ft_putstr_fd ("Cub3d: RGB out of the range", 2), -1);
-        }
-    }
-    return (0);
-}
-
-int check_path(char *line)
-{
-    int path;
-    int i;
-
-    path = 0;
-    i = 0;
-    while (line[i])
-    {
-        while (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
-            i++;
-        while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-            i++;
-        if (line[i] != '\0' && line[i] != '\n')
-            path++;
-    }
-    return (path);
 }
 
 int check_map(char *line)

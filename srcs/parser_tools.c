@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:49:26 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 03:09:59 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:16:34 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,53 +26,51 @@ int find_char(char *str, char c)
     return (-1);
 }
 
-void    add_node(t_data *data, int *index_ptr, t_map **ptr)
+void    add_node(t_data *data, int *index_ptr, t_info **ptr)
 {
-    t_map  *node;
+    t_info  *node;
 
     if (*index_ptr == 0)
     {
         data->map = NULL;
-        data->lmap = malloc(sizeof(t_map));
-        if (!data->lmap)
+        data->info = malloc(sizeof(t_info));
+        if (!data->info)
             exit_error(data, 0, "Cub3d: Allocation failed");
-        data->lmap->index = *index_ptr;
-        data->lmap->line = NULL;
-        data->lmap->next = NULL;
-        data->lmap->prev = NULL;
-        *ptr = data->lmap;
+        data->info->index = *index_ptr;
+        data->info->elem = NULL;
+        data->info->type = NULL;
+        data->info->next = NULL;
+        data->info->prev = NULL;
+        *ptr = data->info;
     }
     else if (*index_ptr > 0)
     {
-        node = malloc(sizeof(t_map));
+        node = malloc(sizeof(t_info));
 
         node->index = *index_ptr;
-        node->line = NULL;
+        node->elem = NULL;
         node->next = NULL;
-        data->lmap->next = node;
-        data->lmap = data->lmap->next;
+        node->type = NULL;
+        data->info->prev = data->info;
+        data->info->next = node;
+        data->info = data->info->next;
     } 
 }
 
-void    free_data(t_data *data)
-{
-    free_elements_lst(data);
-    free_map(data);
-}
 
-void    free_elements_lst(t_data *data)
+void    free_array(t_data *data)
 {
-    t_map   *tofree;
+    int i;
 
-    if (data->lmap)
+    i = 0;
+    if (data->info->elem)
     {
-        while (data->lmap)
+        while (data->info->elem[i])
         {
-            tofree = data->lmap;
-            free(data->lmap->line);
-            data->lmap = data->lmap->next;
-            free(tofree);
+            free(data->info->elem[i]);
+            i++;
         }
+        free(data->info->elem);
     }
 }
 
@@ -92,6 +90,27 @@ void    free_map(t_data *data)
     }
 }
 
+void    free_data(t_data *data)
+{
+    free_elements_lst(data);
+    free_map(data);
+}
+
+void    free_elements_lst(t_data *data)
+{
+    t_info   *tofree;
+
+    if (data->info)
+    {
+        while (data->info)
+        {
+            tofree = data->info;
+            free_array(data);
+            data->info = data->info->next;
+            free(tofree);
+        }
+    }
+}
 void exit_error(t_data *data, int fr, char *err)
 {
     if (err)
