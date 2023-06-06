@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:36:03 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 18:23:37 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:26:06 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ int check_fc(t_data *data, char *line)
 
     i = 0;
     vals = 0;
-    printf("Get into parse_fc\n");
     while (line[i])
     {
         comma = 0;
+        if (line[0] == 'C')
+            data->info->type = C;
+        else if(line[0] == 'F')
+            data->info->type = F;
         while (line[i] != ',' && line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
             i++;
         while (line[i] && (line[i] == ',' || line[i] == ' ' || line[i] == '\t'))

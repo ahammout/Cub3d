@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 18:18:33 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:23:36 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 #define NO "NO"
 #define EA "EA"
 
-#define C 'C'
-#define F 'F'
+#define C "C"
+#define F "F"
 
 #define WL '1'
 #define EM '0'

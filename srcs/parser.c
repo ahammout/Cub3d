@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 18:33:56 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:36:52 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void    build_map(t_data *data, char *line)
     while (line[i])
     {
         if (line[i] == '\n')
-            s++;   
+            s++;
         i++;
     }
     i = 0;
@@ -91,8 +91,8 @@ void handle_map(t_data *data, int map_fd, char *holder)
         i++;
     }
     build_map(data, holder);
-    // && !closed_map(data)
-    if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) )
+    
+    if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) && !closed_map(data))
         exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
     
 }
@@ -106,7 +106,7 @@ int handle_elements(char *line, t_data *data, t_info *ptr)
         i++;
     if (direction_identifier(data, line + i))
         parse_directions(data, line + i, ptr);
-    else if ((line[i] == C || line[i] == F) && is_whitespace(line[i + 1]))
+    else if ((line[i] == 'C' || line[i] == 'F') && is_whitespace(line[i + 1]))
         parse_fc(data, line + i, ptr);
     else if (is_wall(line + i))
         return (1);
@@ -138,8 +138,6 @@ void handle_file(int map_fd, t_data *data)
         node_index++;
     }
     data->info = ptr;
-    // if(!get_pure_paths(data))
-    //     exit_error(data, 1, "Cub3d: Invalid path");
     if (is_wall(line))
         handle_map(data, map_fd, line);    
 }
@@ -157,7 +155,7 @@ bool    parser(char **av, t_data *data)
     handle_file(map_fd, data);
     display_list(data->info);
     display_table(data->map);
-    // printf ("End of parser\n");
+    printf ("End of parser\n");
     //-----------------------------
     return (true);
     

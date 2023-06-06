@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:52:13 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 15:39:55 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 19:23:11 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,14 @@ void    display_list(t_info *list)
     int j;
 
     i = 0;
-    j = 0;
     printf ("\n/--------------- COMPS LIST -------------------/\n");
-    while (list)
+    while (list->next)
     {
+        j = 0;
         while (list->elem[j])
         {
-            printf("NODE [%d]: %s\n", i, list->elem[j]);
+            printf("NODE [%d]   : ", i);
+            printf("Type - %s -: %s\n", list->type, list->elem[j]);
             j++;
         }
         list = list->next;
