@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:49:26 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 00:16:39 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 03:09:59 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,15 @@ void    free_map(t_data *data)
     int i;
 
     i = 0;
-    while (data->map[i])
+    if (data->map)
     {
-        free(data->map[i]);
-        i++;
+        while (data->map[i])
+        {
+            free(data->map[i]);
+            i++;
+        }
+        free(data->map);
     }
-    free(data->map);
 }
 
 void exit_error(t_data *data, int fr, char *err)

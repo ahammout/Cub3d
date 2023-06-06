@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 00:49:44 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 03:55:45 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@
 #define WL '1'
 #define EM '0'
 
-typedef struct  s_map
+typedef struct  s_info
 {
-    char    *line;
+    char    **elem;
     int     type;
     int     index;
-    struct  s_map *next;
-    struct  s_map *prev;
-}               t_map;
+    struct  s_info *next;
+    struct  s_info *prev;
+}               t_info;
 
 
 typedef struct  s_data
 {
-    t_map   *lmap;
+    t_info   *info;
     char    **map;
 }               t_data;
 
@@ -52,11 +52,12 @@ bool    parser(char **av, t_data *data);
 void    add_node(t_data *data, int *index_ptr, t_map **ptr);
 int     is_wall (char *line);
 void    handle_file(int map_fd, t_data *data);
-void    map_handler(t_data *data, int map_fd, char *holder);
+void    handle_map(t_data *data, int map_fd, char *holder);
+int     handle_elements(char *line, t_data *data, t_map *ptr);
 int     direction_identifier(char *line);
-int     floor_ceiling_handler(char *line);
+int     check_fc(char *line);
+int     check_path(char *line);
 int     direction_handler(char *line);
-int     check_elements(char *line, t_data *data, t_map *ptr);
 int     check_map(char *line);
 int     find_comma(char *line);
 int     get_color(char *line);

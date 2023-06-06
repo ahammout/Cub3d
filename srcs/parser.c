@@ -6,11 +6,15 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 00:48:38 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/06 04:16:23 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
+
+int closed_map(t_data *data)
+
+int get_pure_paths(t_data *data);
 
 int direction_identifier(char *line)
 {
@@ -25,43 +29,6 @@ int direction_identifier(char *line)
         return (1);
     }
     return (0);
-}
-
-int get_color(char *line)
-{
-    int     color;
-    char    *str;
-    int     i;
-
-    i = 0;
-    str = ft_substr(line, 0, find_comma(line));
-    if (all_isdigit(str))
-        color = ft_atoi(str);
-    else
-        color = -1;
-    free(str);
-    return (color);
-}
-
-
-
-int direction_handler(char *line)
-{
-    int path;
-    int i;
-
-    path = 0;
-    i = 0;
-    while (line[i])
-    {
-        while (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
-            i++;
-        while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-            i++;
-        if (line[i] != '\0' && line[i] != '\n')
-            path++;
-    }
-    return (path);
 }
 
 void    build_map(t_data *data, char *line)
@@ -90,14 +57,13 @@ void    build_map(t_data *data, char *line)
     data->map[j] = NULL;
 }
 
-void map_handler(t_data *data, int map_fd, char *holder)
+void handle_map(t_data *data, int map_fd, char *holder)
 {
     char    *line;
     char    *to_free;
     int     i;
 
     line = ft_strdup("");
-    // printf("GET INTO THE MAP HANDLER\n");
     i = 0;
     while (line)
     {
@@ -112,13 +78,52 @@ void map_handler(t_data *data, int map_fd, char *holder)
         i++;
     }
     build_map(data, holder);
-    if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]))
+    if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) && !closed_map(data))
         exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
+    
+}
+
+
+int handle_elements(char *line, t_data *data, t_map *ptr)
+{
+    int i;
+
+    i = 0;
+    while (line[i] == ' ' || line[i] == '\t')
+        i++;
+    if (direction_identifier(line + i))
+    {
+        if (check_path(line + i) != 1)
+        {
+            data->lmap = ptr;
+            exit_error(data, 1, "Cub3d: Invalid identifier or path");
+        }
+        else
+            data->lmap->line = ft_strdup(line + i);
+    }
+    else if ((line[i] == C || line[i] == F) && is_whitespace(line[i + 1]))
+    {
+        if (check_fc(line + i) == -1)
+        {
+            data->lmap = ptr;
+            exit_error(data, 1, NULL);
+        }
+        else
+            data->lmap->line = ft_strdup(line + i);
+    }
+    else if (is_wall(line + i))
+        return (1);
+    else if (!empty_line(line + i))
+    {
+        data->lmap = ptr;
+        exit_error(data, 1, "Cub3d: Invalid identifier or path");
+    }
+    return (0);
 }
 
 void handle_file(int map_fd, t_data *data)
 {
-    t_map   *ptr;
+    t_info   *ptr;
     char     *line;
     int     node_index;
 
@@ -131,13 +136,15 @@ void handle_file(int map_fd, t_data *data)
         line = get_next_line(map_fd);
         if (!empty_line(line))
             add_node(data, &node_index, &ptr);
-        if (check_elements(line, data, ptr))
+        if (handle_elements(line, data, ptr))
             break;
         node_index++;
     }
     data->lmap = ptr;
+    if(!get_pure_paths(data))
+        exit_error(data, 1, "Cub3d: Invalid path");
     if (is_wall(line))
-        map_handler(data, map_fd, line);    
+        handle_map(data, map_fd, line);    
 }
 
 bool    parser(char **av, t_data *data)
@@ -151,7 +158,7 @@ bool    parser(char **av, t_data *data)
         exit (EXIT_FAILURE);
     }
     handle_file(map_fd, data);
-    display_list(data->lmap);
+    display_list(data->info);
     display_table(data->map);
     // printf ("End of parser\n");
     //-----------------------------
