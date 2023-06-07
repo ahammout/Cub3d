@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:52:13 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 19:23:11 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/07 02:15:32 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void    display_table(char **table)
     printf ("\n/--------------- MAP ARRAY -------------------/\n");
     while (table[i])
     {
-        printf ("LINE [%d]: %s\n", i, table[i]);
+        printf ("%s\n", table[i]);
         i++;
     }
     printf ("LINE [%d]: %s\n", i, table[i]);

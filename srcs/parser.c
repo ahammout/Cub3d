@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 19:36:52 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/07 03:37:20 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,17 @@ void    build_map(t_data *data, char *line)
         j++;
     }
     data->map[j] = NULL;
+    //// ADD A FUNCTION THAT ADDS THE SPACES AT THE END OF EACH LINE
 }
+
+// int closed_map(t_data *data)
+// {
+//     int i;
+//     int j;
+
+//     i = 1;
+//     j = 0;
+// }
 
 void handle_map(t_data *data, int map_fd, char *holder)
 {
@@ -91,7 +101,6 @@ void handle_map(t_data *data, int map_fd, char *holder)
         i++;
     }
     build_map(data, holder);
-    
     if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) && !closed_map(data))
         exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
     

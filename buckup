@@ -1,9 +1,0 @@
-    // while (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
-    //     i++;
-    // // if (line[i] != '1')
-    // // {
-
-    // //     printf("THE LINE: %c\n", line[]);
-    // //     exit(0);
-    // //     return (ft_putstr_fd("Cub3d: Map must be surrounded by walls", 2), -1);
-    // // }
