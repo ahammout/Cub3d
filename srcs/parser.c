@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 03:37:20 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/07 15:43:18 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 // int closed_map(t_data *data)
 
 // int get_pure_paths(t_data *data);
+
+int is_wall (char *line)
+{
+    int i;
+
+    i = 0;
+    if (empty_line(line))
+        return (0);
+    while (line[i])
+    {
+        if (line[i] != ' ' && line[i] != '\t' && line[i] != '1' && line[i] != '\n' && line[i] != '\0')
+            return (0);
+        i++;
+    }
+    return (1);
+}
 
 int direction_identifier(t_data *data, char *line)
 {
@@ -42,68 +58,6 @@ int direction_identifier(t_data *data, char *line)
         return (1);
     }
     return (0);
-}
-
-void    build_map(t_data *data, char *line)
-{
-    int i;
-    int j;
-    int s;
-
-    i = 0;
-    s = 0;
-    j = 0;
-    while (line[i])
-    {
-        if (line[i] == '\n')
-            s++;
-        i++;
-    }
-    i = 0;
-    data->map = malloc(sizeof(char *) * s + 1);
-    while(line[i])
-    {
-        data->map[j] = ft_substr(line + i, 0, find_char(line + i, '\n'));
-        i += (find_char(line + i, '\n') + 1);
-        j++;
-    }
-    data->map[j] = NULL;
-    //// ADD A FUNCTION THAT ADDS THE SPACES AT THE END OF EACH LINE
-}
-
-// int closed_map(t_data *data)
-// {
-//     int i;
-//     int j;
-
-//     i = 1;
-//     j = 0;
-// }
-
-void handle_map(t_data *data, int map_fd, char *holder)
-{
-    char    *line;
-    char    *to_free;
-    int     i;
-
-    line = ft_strdup("");
-    i = 0;
-    while (line)
-    {
-        free(line);
-        line = get_next_line(map_fd);
-        if (check_map(line) == -1)
-            exit_error(data, 1, NULL);
-        to_free = holder;
-        holder = ft_strjoin(holder, line);
-        if (line)
-            free(to_free);
-        i++;
-    }
-    build_map(data, holder);
-    if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) && !closed_map(data))
-        exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
-    
 }
 
 int handle_elements(char *line, t_data *data, t_info *ptr)

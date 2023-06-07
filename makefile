@@ -6,7 +6,7 @@
 #    By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 14:50:41 by ahammout          #+#    #+#              #
-#    Updated: 2023/06/06 18:20:31 by ahammout         ###   ########.fr        #
+#    Updated: 2023/06/07 14:29:30 by ahammout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,6 @@ NAME = Cub3d
 CC = cc
 
 # CFLAGS = -Wall -Wextra -Werror
-
-		# src/parse_fc.c \
 
 INCLUDES = includes/cub3d.h
 
@@ -27,6 +25,7 @@ SRCS =	srcs/main.c \
 		srcs/parse_directions.c \
 		srcs/parse_fc.c \
 		srcs/parser_tools.c \
+		srcs/parse_map.c \
 		srcs/parser_analyzer.c \
 		srcs/tools.c \
 		get_next_line/get_next_line.c \
