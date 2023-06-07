@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:08:38 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 17:48:10 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:01:29 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ void handle_map(t_data *data, int map_fd, char *holder)
     line = ft_strdup("");
     i = 0;
     player = 0;
+
     while (line)
     {
         free(line);
@@ -158,4 +159,5 @@ void handle_map(t_data *data, int map_fd, char *holder)
     build_map(data, holder);
     if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) || surrounded_map(data) == -1)
         exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
+    exit (0);
 }

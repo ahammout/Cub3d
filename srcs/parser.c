@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 17:24:02 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/07 18:57:08 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void handle_file(int map_fd, t_data *data)
         }
     }
     data->info = ptr;
-    printf ("Begin handling the map\n");
     if (is_wall(line))
         handle_map(data, map_fd, line);    
 }
