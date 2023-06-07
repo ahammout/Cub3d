@@ -6,15 +6,26 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 15:43:18 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:24:02 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
 
-// int closed_map(t_data *data)
+char    **get_element(t_data *data, char *identifier)
+{
+    t_info  *ptr;
 
-// int get_pure_paths(t_data *data);
+    ptr = data->info;
+    while (data->info)
+    {
+        if (data->info->type == identifier)
+            return (data->info->elem);
+        data->info = data->info->next;
+    }
+    data->info = ptr;
+    return (NULL);
+}
 
 int is_wall (char *line)
 {
@@ -95,12 +106,15 @@ void handle_file(int map_fd, t_data *data)
         free(line);
         line = get_next_line(map_fd);
         if (!empty_line(line))
+        {
             add_node(data, &node_index, &ptr);
-        if (handle_elements(line, data, ptr))
-            break;
-        node_index++;
+            if (handle_elements(line, data, ptr))
+                break;
+            node_index++;
+        }
     }
     data->info = ptr;
+    printf ("Begin handling the map\n");
     if (is_wall(line))
         handle_map(data, map_fd, line);    
 }

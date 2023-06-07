@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:49:26 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/06 16:16:34 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:12:50 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    add_node(t_data *data, int *index_ptr, t_info **ptr)
         data->info->prev = data->info;
         data->info->next = node;
         data->info = data->info->next;
-    } 
+    }
 }
 
 

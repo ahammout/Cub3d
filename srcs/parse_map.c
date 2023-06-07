@@ -6,11 +6,51 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:08:38 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 15:38:47 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:48:10 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
+
+
+int surrounded_map(t_data *data)
+{
+    int x;
+    int y;
+
+    y = 1;
+    // CHECK SIDES LEFT & RIGHT
+    while (data->map[y + 1])
+    {
+        if (data->map[y][ft_strlen(data->map[y]) - 1] != '1')
+        {
+            printf("The Chosen line [%d]: %s\n", y, data->map[y] + (ft_strlen(data->map[y]) - 1));
+            return (-1);
+        }
+        y++;
+    }
+    // CHECK INSIDE
+    y = 1;
+    while (data->map[y + 1])
+    {
+        x = 0;
+        while (data->map[y][x])
+        {
+            if (data->map[y][x] == '0' || data->map[y][x] == 'E' || data->map[y][x] == 'S' || data->map[y][x] == 'N' || data->map[y][x] == 'W')
+            {
+                // printf("line {%d}\n Up : %c\n down : %c\n left : %c\n Right : %c\n", y, data->map[y - 1][x], data->map[y + 1][x], data->map[y][x - 1], data->map[y][x + 1]);
+                if (!data->map[y - 1][x] || data->map[y - 1][x] == ' ' || data->map[y - 1][x] == '\t' \
+                    || !data->map[y - 1][x] || data->map[y + 1][x] == ' ' || data->map[y + 1][x] == '\t' \
+                    || !data->map[y - 1][x] || data->map[y][x + 1] == ' ' || data->map[y][x + 1] == '\t' \
+                    || !data->map[y - 1][x] || data->map[y][x - 1] == ' ' || data->map[y][x - 1] == '\t')
+                    return (-1);
+            }
+            x++;
+        }
+        y++;
+    }
+    return (0);
+}
 
 void    build_map(t_data *data, char *line)
 {
@@ -21,53 +61,30 @@ void    build_map(t_data *data, char *line)
     i = 0;
     s = 0;
     j = 0;
-    while (line[i])
+    if (line)
     {
-        if (line[i] == '\n')
-            s++;
-        i++;
-    }
-    i = 0;
-    data->map = malloc(sizeof(char *) * s + 1);
-    while(line[i])
-    {
-        data->map[j] = ft_substr(line + i, 0, find_char(line + i, '\n'));
-        i += (find_char(line + i, '\n') + 1);
-        j++;
-    }
-    data->map[j] = NULL;
-    //// ADD A FUNCTION THAT ADDS THE SPACES AT THE END OF EACH LINE
-}
-
-int check_map(char *line)
-{
-    char    *comps;
-    int     i;
-    int     j;
-
-    i = 0;
-    if (!line)
-        return (0);
-    comps = ft_strdup("\nSWNE01 ");
-    if (empty_line(line))
-        return (ft_putstr_fd("Cub3d: Impty line inside the map", 2), -1);
-    while (line[i])
-    {
-        j = 0;
-        while (comps[j])
+        while (line[i])
         {
-            if (line[i] == comps[j])
-                break;
+            if (line[i] == '\n')
+                s++;
+            i++;
+        }
+        i = 0;
+        data->map = malloc(sizeof(char *) * s + 1);
+        while(line[i])
+        {
+            if (line[i] == '\n')
+                i++;
+            data->map[j] = ft_substr(line + i, 0, find_char(line + i, '\n'));
+            while (line[i] != '\n' && line[i] != '\0')
+                i++;
             j++;
         }
-        if (!comps[j])
-            return (ft_putstr_fd("Cub3d: Invalid comp", 2), -1);
-        i++;
+        data->map[j] = NULL;
     }
-    return (0);
 }
 
-/// ADD ANGLE 
+/// ADD ANGLE
 int one_player(char *line, int *player)
 {
     int i;
@@ -87,32 +104,30 @@ int one_player(char *line, int *player)
     return (0);
 }
 
-int surrounded_map(t_data *data)
-{
-    int x;
-    int y;
 
-    y = 1;
-    // CHECK SIDES LEFT RIGHT 
-    // CHECK INSIDE
-    printf("GET INTO SURROUNDED MAP\n");
-    while (data->map[y + 1])
+int check_map(char *line)
+{
+    char    *comps;
+    int     i;
+    int     j;
+
+    i = 0;
+    if (!line)
+        return (0);
+    comps = ft_strdup("\nSWNE01 ");
+
+    while (line[i])
     {
-        x = 0;
-        while (data->map[y][x + 1])
+        j = 0;
+        while (comps[j])
         {
-            if (data->map[y][x] == '0' || data->map[y][x] == 'E' || data->map[y][x] == 'S' || data->map[y][x] == 'N' || data->map[y][x] == 'W')
-            {
-                // printf("line {%d}\n Up : %c\n down : %c\n left : %c\n Right : %c\n", y, data->map[y - 1][x], data->map[y + 1][x], data->map[y][x - 1], data->map[y][x + 1]);
-                if (data->map[y - 1][x] == ' ' || data->map[y - 1][x] == '\t' \
-                    || data->map[y + 1][x] == ' ' || data->map[y + 1][x] == '\t' \
-                    || data->map[y][x + 1] == ' ' || data->map[y][x + 1] == '\t' \
-                    || data->map[y][x - 1] == ' ' || data->map[y][x - 1] == '\t')
-                    return (ft_putstr_fd("Cub3d: Map must be souronded by Walls", 2), -1);
-            }
-            x++;
+            if (line[i] == comps[j])
+                break;
+            j++;
         }
-        y++;
+        if (!comps[j])
+            return (ft_putstr_fd("Cub3d: Invalid comp", 2), -1);
+        i++;
     }
     return (0);
 }
@@ -139,6 +154,7 @@ void handle_map(t_data *data, int map_fd, char *holder)
             free(to_free);
         i++;
     }
+    /// HANDLE EMPTY LINE IN THE LAST OF THE MAP
     build_map(data, holder);
     if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) || surrounded_map(data) == -1)
         exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
