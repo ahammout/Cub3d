@@ -6,13 +6,13 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 02:56:52 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:10:47 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
 
-char    **get_element(t_data *data, char *identifier)
+char    **get_element(t_data *data, int identifier)
 {
     t_info  *ptr;
 
@@ -77,6 +77,33 @@ int handle_elements(char *line, t_data *data, t_info *ptr)
     return (0);
 }
 
+int    identify_type(t_data *data, int identifier)
+{
+    t_info *ptr;
+    int     e_exist;
+
+    ptr = data->info;
+    e_exist = 0;
+    while (data->info)
+    {
+        if (data->info->type == identifier)
+            e_exist++;
+        data->info = data->info->next;
+    }
+    data->info = ptr;
+    if (e_exist == 0 || e_exist > 1)
+        return (-1);
+    return (0);
+}
+
+void    check_elements(t_data *data)
+{
+    if (identify_type(data, SO) == -1 || identify_type(data, WE) == -1 \
+        || identify_type(data, NO) == -1 || identify_type(data, EA) == -1 \
+        || identify_type(data, C) == -1 || identify_type(data, F) == -1)
+        exit_error(data, 1, "Cub3d: some identifier doesn't exist or duplicated!");
+}
+
 void handle_file(int map_fd, t_data *data)
 {
     t_info   *ptr;
@@ -99,8 +126,10 @@ void handle_file(int map_fd, t_data *data)
         }
     }
     data->info = ptr;
+    // CHECK IF ALL ELEMENTS ARE EXIST AND NOT DUPLICATED 
+    check_elements(data);
     if (is_wall(line))
-        handle_map(data, map_fd, line);    
+        handle_map(data, map_fd, line);
 }
 
 bool    parser(char **av, t_data *data)
@@ -113,14 +142,13 @@ bool    parser(char **av, t_data *data)
         perror("Cub3d");
         exit (EXIT_FAILURE);
     }
-    // CHECK IF ALL ELEMENTS ARE EXIST AND NOT DUPLICATED 
     handle_file(map_fd, data);
-    display_list(data->info);
+    if (!data->info)
+        exit_error(data, 1, "Cub3d: There is no elements on the file");
     if (!data->map)
-        exit_error(data, 1, "Cub3d: There is no map inside the file");
+        exit_error(data, 1, "Cub3d: There is no map on file");
+    display_list(data->info);
     display_table(data->map);
-    printf ("End of parser\n");
-    //-----------------------------
     return (true);
     
 }

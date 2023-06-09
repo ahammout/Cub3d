@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:08:38 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 02:48:26 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:20:03 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ int surrounded_map(t_data *data)
     // CHECK SIDES LEFT & RIGHT
     while (data->map[y + 1])
     {
-        if (data->map[y][ft_strlen(data->map[y]) - 1] != '1' && data->map[y][ft_strlen(data->map[y]) - 1] != ' ' \
-            || data->map[y][0] != '1' && data->map[y][0] != ' ')
-        {
-            // printf("The Chosen line [%d]: %c.\n", y, data->map[y][ft_strlen(data->map[y]) - 1]);
-            return (-1);
-        }
+        if ((data->map[y][ft_strlen(data->map[y]) - 1] != '1' \
+            && data->map[y][ft_strlen(data->map[y]) - 1] != ' ') \
+            ||( data->map[y][0] != '1' && data->map[y][0] != ' '))
+            {
+                printf("From souronded wall\n");
+                return (-1);
+            }
         y++;
     }
     // CHECK INSIDE
@@ -59,8 +60,10 @@ int surrounded_map(t_data *data)
                     || !data->map[y - 1][x] || data->map[y + 1][x] == ' ' || data->map[y + 1][x] == '\t' \
                     || !data->map[y - 1][x] || data->map[y][x + 1] == ' ' || data->map[y][x + 1] == '\t' \
                     || !data->map[y - 1][x] || data->map[y][x - 1] == ' ' || data->map[y][x - 1] == '\t')
+                {
+                    printf("From souronded wall\n");
                     return (-1);
-            }
+                }            }
             x++;
         }
         y++;

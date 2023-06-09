@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:36:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 17:05:15 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:08:52 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,9 @@ int check_path(char *line)
 
 void parse_directions(t_data *data, char *line, t_info *ptr)
 {
-    int     i;
     char    *path;
 
-    i = 0;
-    
+
     if (check_path(line) != 1)
     {
         data->info = ptr;

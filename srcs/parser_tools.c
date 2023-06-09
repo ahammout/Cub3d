@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:49:26 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 17:12:50 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:40:59 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void    add_node(t_data *data, int *index_ptr, t_info **ptr)
             exit_error(data, 0, "Cub3d: Allocation failed");
         data->info->index = *index_ptr;
         data->info->elem = NULL;
-        data->info->type = NULL;
+        data->info->type = 0;
         data->info->next = NULL;
         data->info->prev = NULL;
         *ptr = data->info;
@@ -50,7 +50,7 @@ void    add_node(t_data *data, int *index_ptr, t_info **ptr)
         node->index = *index_ptr;
         node->elem = NULL;
         node->next = NULL;
-        node->type = NULL;
+        node->type = 0;
         data->info->prev = data->info;
         data->info->next = node;
         data->info = data->info->next;

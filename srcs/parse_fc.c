@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:36:03 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 17:15:37 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:09:15 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int get_color(char *line)
 {
     int     color;
     char    *str;
-    int     i;
 
-    i = 0;
     str = ft_substr(line, 0, find_comma(line));
     if (all_isdigit(str))
         color = ft_atoi(str);
@@ -47,13 +45,13 @@ int check_fc(t_data *data, char *line)
 
     i = 0;
     vals = 0;
+    if (line[0] == 'C')
+        data->info->type = C;
+    else if(line[0] == 'F')
+        data->info->type = F;
     while (line[i])
     {
         comma = 0;
-        if (line[0] == 'C')
-            data->info->type = C;
-        else if(line[0] == 'F')
-            data->info->type = F;
         while (line[i] != ',' && line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
             i++;
         while (line[i] && (line[i] == ',' || line[i] == ' ' || line[i] == '\t'))
