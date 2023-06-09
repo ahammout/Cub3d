@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:08:38 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 19:01:29 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 13:50:13 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void    build_map(t_data *data, char *line)
     }
 }
 
-/// ADD ANGLE
 int one_player(char *line, int *player)
 {
     int i;
