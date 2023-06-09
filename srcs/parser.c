@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 18:57:08 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 02:56:52 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,6 @@ char    **get_element(t_data *data, char *identifier)
     return (NULL);
 }
 
-int is_wall (char *line)
-{
-    int i;
-
-    i = 0;
-    if (empty_line(line))
-        return (0);
-    while (line[i])
-    {
-        if (line[i] != ' ' && line[i] != '\t' && line[i] != '1' && line[i] != '\n' && line[i] != '\0')
-            return (0);
-        i++;
-    }
-    return (1);
-}
 
 int direction_identifier(t_data *data, char *line)
 {
@@ -128,8 +113,11 @@ bool    parser(char **av, t_data *data)
         perror("Cub3d");
         exit (EXIT_FAILURE);
     }
+    // CHECK IF ALL ELEMENTS ARE EXIST AND NOT DUPLICATED 
     handle_file(map_fd, data);
     display_list(data->info);
+    if (!data->map)
+        exit_error(data, 1, "Cub3d: There is no map inside the file");
     display_table(data->map);
     printf ("End of parser\n");
     //-----------------------------
