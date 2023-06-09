@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:52:13 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 02:51:40 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:12:37 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void    display_list(t_info *list)
         while (list->elem[j])
         {
             printf("NODE [%d]   : ", i);
-            printf("Type - %s -: %s\n", list->type, list->elem[j]);
+            printf("Type - %d -: %s\n", list->type, list->elem[j]);
             j++;
         }
         list = list->next;
@@ -108,7 +108,5 @@ void    display_table(char **table)
     {
         printf ("%s\n", table[i]);
         i++;
-    }
-    printf ("LINE [%d]: %s\n", i, table[i]);
-    
+    }    
 }

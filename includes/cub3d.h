@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 16:38:03 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:08:31 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 #include"../get_next_line/get_next_line.h"
 #include"../libft/libft.h"
 
-#define SO "SO"
-#define WE "WE"
-#define NO "NO"
-#define EA "EA"
+#define SO 'S'
+#define WE 'W'
+#define NO 'N'
+#define EA 'E'
 
-#define C "C"
-#define F "F"
+#define C 'C'
+#define F 'F'
 
 #define WL '1'
 #define EM '0'
@@ -35,7 +35,7 @@
 typedef struct  s_info
 {
     char    **elem;
-    char    *type;
+    int     type;
     int     index;
     struct  s_info *next;
     struct  s_info *prev;
@@ -64,7 +64,7 @@ int     check_map(char *line);
 int     find_comma(char *line);
 int     get_color(char *line);
 void    build_map(t_data *data, char *line);
-char    **get_element(t_data *data, char *identifier);
+char    **get_element(t_data *data, int identifier);
 void    free_elements_lst(t_data *data);
 void    free_map(t_data *data);
 void    free_data(t_data *data);
