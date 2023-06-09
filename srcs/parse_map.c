@@ -6,12 +6,27 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:08:38 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 13:50:13 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 14:34:18 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
 
+int is_wall (char *line)
+{
+    int i;
+
+    i = 0;
+    if (empty_line(line))
+        return (0);
+    while (line[i])
+    {
+        if (line[i] != ' ' && line[i] != '\t' && line[i] != '1' && line[i] != '\n' && line[i] != '\0')
+            return (0);
+        i++;
+    }
+    return (1);
+}
 
 int surrounded_map(t_data *data)
 {
@@ -22,9 +37,11 @@ int surrounded_map(t_data *data)
     // CHECK SIDES LEFT & RIGHT
     while (data->map[y + 1])
     {
-        if (data->map[y][ft_strlen(data->map[y]) - 1] != '1')
+        if (data->map[y][ft_strlen(data->map[y]) - 1] != '1' \
+            && data->map[y][ft_strlen(data->map[y]) - 1] != ' ' \
+            || (data->map[y][0] != '1' && data->map[y][0] != ' '))
         {
-            printf("The Chosen line [%d]: %s\n", y, data->map[y] + (ft_strlen(data->map[y]) - 1));
+            // printf("The Chosen line [%d]: %c.\n", y, data->map[y][ft_strlen(data->map[y]) - 1]);
             return (-1);
         }
         y++;
@@ -158,5 +175,4 @@ void handle_map(t_data *data, int map_fd, char *holder)
     build_map(data, holder);
     if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) || surrounded_map(data) == -1)
         exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
-    exit (0);
 }

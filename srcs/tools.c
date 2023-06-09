@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:52:13 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/07 16:36:55 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 02:51:40 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,15 @@ int	empty_line(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i])
-	{
-		if (ft_isprint(str[i]))
-			return (0);
-		i++;
-	}
+    if (str)
+    {
+        while (str[i])
+        {
+            if (ft_isprint(str[i]))
+                return (0);
+            i++;
+        }
+    }
 	return (1);
 }
 
