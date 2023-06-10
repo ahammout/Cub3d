@@ -1,7 +1,7 @@
-      NO ./texture.xpm        
-SO ./texture.xpm
-WE    ./texture.xpm
-EA    ./texture.xpm
+      NO ./brick.xpm42        
+SO ./brick.xpm42
+WE    ./brick.xpm42
+EA    ./brick.xpm42
 
 F 255,100,0
 C 225,249,0
