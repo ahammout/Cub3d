@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:32:00 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 11:13:58 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 int main(int ac, char **av)
 {
     t_data  data;
-
     // atexit(f);
     if (ac == 2)
     {

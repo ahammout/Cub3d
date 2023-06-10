@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:52:13 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:12:37 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:46:09 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,15 @@ void    free_2darray(t_data *data)
     int i;
 
     i = 0;
-    while (data->map[i])
+    if (data->map)
     {
-        free(data->map[i]);
-        i++;
+        while (data->map[i])
+        {
+            free(data->map[i]);
+            i++;
+        }
+        free(data->map);
     }
-    free(data->map);
     data->map = NULL;
     
 }

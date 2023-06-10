@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:36:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:31:35 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:08:57 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int check_path(char *line)
     return (path);
 }
 
-
 void parse_directions(t_data *data, char *line, t_info *ptr)
 {
     char    *path;
@@ -62,7 +61,6 @@ void parse_directions(t_data *data, char *line, t_info *ptr)
     if (check_path(line) != 1)
     {
         data->info = ptr;
-        printf("the line: %s\n", line);
         exit_error(data, 1, "Cub3d: Invalid identifier or path");
     }
     path = open_path(line);
@@ -73,4 +71,3 @@ void parse_directions(t_data *data, char *line, t_info *ptr)
     data->info->elem[1] = NULL;
     free(path);
 }
-

@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:08:31 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 21:37:23 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ int     find_comma(char *line);
 int     get_color(char *line);
 void    build_map(t_data *data, char *line);
 char    **get_element(t_data *data, int identifier);
+
+int     surrounded_map(t_data *data);
+void    cut_last_lines(t_data *data);
+void    analyze_map(t_data *data);
+
 void    free_elements_lst(t_data *data);
 void    free_map(t_data *data);
 void    free_data(t_data *data);
@@ -77,6 +82,7 @@ int     is_whitespace(char c);
 int     empty_line(char *str);
 int     all_isdigit(char *str);
 int     ft_2dstrlen(char **str2d);
+void    free_2darray(t_data *data);
 void    free_map_list(t_data *data);
 void    display_list(t_info *list);
 void    display_table(char **table);
