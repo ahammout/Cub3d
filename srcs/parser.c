@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 02:45:57 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 11:13:04 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 char    **get_element(t_data *data, int identifier)
 {
-    t_info  *ptr;
+    t_info  *tmp;
 
-    ptr = data->info;
-    while (data->info)
+    tmp = data->info;
+    while (tmp)
     {
-        if (data->info->type == identifier)
-            return (data->info->elem);
-        data->info = data->info->next;
+        if (tmp->type == identifier)
+            return (tmp->elem);
+        tmp = tmp->next;
     }
-    data->info = ptr;
     return (NULL);
 }
 
