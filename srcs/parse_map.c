@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:08:38 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:42:26 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 14:49:19 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int surrounded_map(t_data *data)
                 {
                     // printf("line {%d}\n Up : %c\n down : %c\n left : %c\n Right : %c\n", y, data->map[y - 1][x], data->map[y + 1][x], data->map[y][x - 1], data->map[y][x + 1]);
                     return (-1);
-                }            }
+                }
+            }
             x++;
         }
         y++;
