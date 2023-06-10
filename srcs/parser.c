@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:10:47 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 01:37:15 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,5 @@ bool    parser(char **av, t_data *data)
     display_list(data->info);
     display_table(data->map);
     return (true);
-    
 }
+

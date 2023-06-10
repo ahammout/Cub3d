@@ -6,96 +6,37 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:08:38 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:20:03 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:32:50 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../includes/cub3d.h"
 
-int is_wall (char *line)
+void    build_map(t_data *data, char *holder)
 {
-    int i;
-
-    i = 0;
-    if (empty_line(line))
-        return (0);
-    while (line[i])
-    {
-        if (line[i] != ' ' && line[i] != '\t' && line[i] != '1' && line[i] != '\n' && line[i] != '\0')
-            return (0);
-        i++;
-    }
-    return (1);
-}
-
-int surrounded_map(t_data *data)
-{
-    int x;
-    int y;
-
-    y = 1;
-    // CHECK SIDES LEFT & RIGHT
-    while (data->map[y + 1])
-    {
-        if ((data->map[y][ft_strlen(data->map[y]) - 1] != '1' \
-            && data->map[y][ft_strlen(data->map[y]) - 1] != ' ') \
-            ||( data->map[y][0] != '1' && data->map[y][0] != ' '))
-            {
-                printf("From souronded wall\n");
-                return (-1);
-            }
-        y++;
-    }
-    // CHECK INSIDE
-    y = 1;
-    while (data->map[y + 1])
-    {
-        x = 0;
-        while (data->map[y][x])
-        {
-            if (data->map[y][x] == '0' || data->map[y][x] == 'E' || data->map[y][x] == 'S' || data->map[y][x] == 'N' || data->map[y][x] == 'W')
-            {
-                // printf("line {%d}\n Up : %c\n down : %c\n left : %c\n Right : %c\n", y, data->map[y - 1][x], data->map[y + 1][x], data->map[y][x - 1], data->map[y][x + 1]);
-                if (!data->map[y - 1][x] || data->map[y - 1][x] == ' ' || data->map[y - 1][x] == '\t' \
-                    || !data->map[y - 1][x] || data->map[y + 1][x] == ' ' || data->map[y + 1][x] == '\t' \
-                    || !data->map[y - 1][x] || data->map[y][x + 1] == ' ' || data->map[y][x + 1] == '\t' \
-                    || !data->map[y - 1][x] || data->map[y][x - 1] == ' ' || data->map[y][x - 1] == '\t')
-                {
-                    printf("From souronded wall\n");
-                    return (-1);
-                }            }
-            x++;
-        }
-        y++;
-    }
-    return (0);
-}
-
-void    build_map(t_data *data, char *line)
-{
-    int i;
-    int j;
-    int s;
+    int     i;
+    int     j;
+    int     s;
 
     i = 0;
     s = 0;
     j = 0;
-    if (line)
+    if (holder)
     {
-        while (line[i])
+        while (holder[i])
         {
-            if (line[i] == '\n')
+            if (holder[i] == '\n')
                 s++;
             i++;
         }
         i = 0;
         data->map = malloc(sizeof(char *) * s + 1);
-        while(line[i])
+        while(holder[i])
         {
-            if (line[i] == '\n')
+            if (holder[i] == '\n')
                 i++;
-            data->map[j] = ft_substr(line + i, 0, find_char(line + i, '\n'));
-            while (line[i] != '\n' && line[i] != '\0')
+            data->map[j] = ft_substr(holder + i, 0, find_char(holder + i, '\n'));
+            while (holder[i] != '\n' && holder[i] != '\0')
                 i++;
             j++;
         }
@@ -103,7 +44,6 @@ void    build_map(t_data *data, char *line)
     }
 }
 
-/// ADD ANGLE
 int one_player(char *line, int *player)
 {
     int i;
@@ -134,7 +74,6 @@ int check_map(char *line)
     if (!line)
         return (0);
     comps = ft_strdup("\nSWNE01 ");
-
     while (line[i])
     {
         j = 0;
@@ -174,8 +113,6 @@ void handle_map(t_data *data, int map_fd, char *holder)
             free(to_free);
         i++;
     }
-    /// HANDLE EMPTY LINE IN THE LAST OF THE MAP
     build_map(data, holder);
-    if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) || surrounded_map(data) == -1)
-        exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
+    analyze_map(data);
 }
