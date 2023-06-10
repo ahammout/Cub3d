@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:36:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:08:52 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:31:35 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void parse_directions(t_data *data, char *line, t_info *ptr)
     data->info->elem = malloc(sizeof(char *) * 2);
     data->info->elem[0] = ft_strdup(path);
     data->info->elem[1] = NULL;
+    free(path);
 }
 
