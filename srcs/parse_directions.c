@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:36:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:31:35 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:44:30 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ void parse_directions(t_data *data, char *line, t_info *ptr)
     data->info->elem[1] = NULL;
     free(path);
 }
-

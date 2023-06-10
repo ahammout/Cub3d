@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 16:00:34 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 02:40:56 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:45:57 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char    **get_element(t_data *data, int identifier)
     data->info = ptr;
     return (NULL);
 }
-
 
 int direction_identifier(t_data *data, char *line)
 {
@@ -126,7 +125,6 @@ void handle_file(int map_fd, t_data *data)
         }
     }
     data->info = ptr;
-    // CHECK IF ALL ELEMENTS ARE EXIST AND NOT DUPLICATED 
     check_elements(data);
     if (is_wall(line))
         handle_map(data, map_fd, line);
@@ -147,8 +145,8 @@ bool    parser(char **av, t_data *data)
         exit_error(data, 1, "Cub3d: There is no elements on the file");
     if (!data->map)
         exit_error(data, 1, "Cub3d: There is no map on file");
-    display_list(data->info);
-    display_table(data->map);
+    // display_list(data->info);
+    // display_table(data->map);
     return (true);
 }
 

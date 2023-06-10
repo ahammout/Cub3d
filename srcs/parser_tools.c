@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 00:49:26 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 02:40:48 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:45:19 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void    free_map(t_data *data)
     {
         while (data->map[i])
         {
-            printf("%d\n", i);
             free(data->map[i]);
             i++;
         }
@@ -94,8 +93,7 @@ void    free_map(t_data *data)
 void    free_data(t_data *data)
 {
     free_elements_lst(data);
-    //prob in free map arr
-    // free_map(data);
+    free_map(data);
 }
 
 void    free_elements_lst(t_data *data)

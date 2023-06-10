@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 02:29:12 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 02:32:29 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:44:05 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int surrounded_map(t_data *data)
     int y;
 
     y = 1;
-    // CHECK SIDES LEFT & RIGHT
     while (data->map[y + 1])
     {
         if ((data->map[y][ft_strlen(data->map[y]) - 1] != '1' \
@@ -43,7 +42,6 @@ int surrounded_map(t_data *data)
                 return (-1);
         y++;
     }
-    // CHECK INSIDE
     y = 1;
     while (data->map[y + 1])
     {

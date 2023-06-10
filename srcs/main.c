@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/09 19:32:00 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/10 02:44:18 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int main(int ac, char **av)
     }
     else    
         return (printf("Error\n[USAGE]: ./Cub3d [map location]\n") , -1);
-    // free_data(&data);
+    free_data(&data);
     return (0);
 } 
