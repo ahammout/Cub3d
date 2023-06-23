@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 11:52:13 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 14:04:43 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/18 03:34:03 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include"parser.h"
 
 int is_whitespace(char c)
 {
-    if (c == ' ' || c == '\t')
+    if (!c || c == ' ' || c == '\t')
         return (1);
     return (0);
 }
@@ -111,5 +111,5 @@ void    display_table(char **table)
     {
         printf ("%s\n", table[i]);
         i++;
-    }
+    }    
 }

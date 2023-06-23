@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:16:29 by verdant           #+#    #+#             */
-/*   Updated: 2023/06/10 15:29:41 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/15 15:11:13 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void	draw_minimap(t_all *all)
 			}
 			x_grid++;
 		}
-
 		y_grid++;
 	}
 	all->player_drawn = true;
