@@ -6,7 +6,7 @@
 #    By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 14:50:41 by ahammout          #+#    #+#              #
-#    Updated: 2023/06/23 18:53:33 by ahammout         ###   ########.fr        #
+#    Updated: 2023/06/23 21:59:47 by ahammout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRC_DIR := srcs/
 OBJ_DIR := obj/
 CC 		:= gcc
 CFLAGS := -Wunreachable-code -Ofast   #-Wall -Wextra -Werror
-LIBPATH  := -lglfw -L/Users/$(USER)/goinfre/homebrew/opt/glfw/lib 
+LIBPATH  := -lglfw -L/Users/$(USER)/goinfre/homebrew/opt/glfw/lib
+# LIBPATH  := -lglfw -L/opt/homebrew/opt/glfw/lib 
 MACOS := -framework Cocoa -framework OpenGL -framework IOKit
 MLXFLAGS := $(MLX42) $(MACOS)  $(LIBPATH) -ldl -lglfw -pthread -lm
 INC      := -I includes/ -I lib/MLX42/include
