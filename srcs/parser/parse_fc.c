@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 03:40:28 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/18 04:37:59 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/23 21:31:47 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	find_comma(char *line)
 
 	i = 0;
 	while (line[i] != ',' && line[i] != ' ' \
-        && line[i] != '\n' && line[i] != '\0')
+		&& line[i] != '\n' && line[i] != '\0')
 		i++;
 	return (i);
 }
@@ -37,7 +37,6 @@ int	get_color(char *line)
 	return (color);
 }
 
-
 int	check_fc(t_data *data, char *line)
 {
 	int	i;
@@ -49,19 +48,21 @@ int	check_fc(t_data *data, char *line)
 	vals = 0;
 	if (line[0] == 'C')
 		data->info->type = C;
-	else if(line[0] == 'F')
+	else if (line[0] == 'F')
 		data->info->type = F;
 	while (line[i])
 	{
 		comma = 0;
-		while (line[i] != ',' && line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
+		while (line[i] != ',' && line[i] != ' ' \
+			&& line[i] != '\t' && line[i] != '\0')
 			i++;
-		while (line[i] && (line[i] == ',' || line[i] == ' ' || line[i] == '\t'))
+		while (line[i] && (line[i] == ',' || \
+			line[i] == ' ' || line[i] == '\t'))
 		{
 			if (line[i] == ',')
 				comma++;
 			if (comma > 1)
-				return (ft_putstr_fd("Cub3d: Multiple commas between RGB values", 2), -1);
+				return (ft_putstr_fd("Cub3d: Bad rgb format", 2), -1);
 			i++;
 		}
 		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\0')
@@ -69,7 +70,7 @@ int	check_fc(t_data *data, char *line)
 			vals ++;
 			color = get_color(line + i);
 			if (!(color >= 0 && color <= 255) || (vals > 3) || color == -1)
-				return (ft_putstr_fd ("Cub3d: RGB out of the range", 2), -1);
+				return (ft_putstr_fd ("Cub3d: rgb out of the range", 2), -1);
 			else
 			{
 				data->info->elem[vals - 1] = ft_itoa(color);

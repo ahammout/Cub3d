@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 17:55:47 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/23 19:02:43 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/23 21:34:06 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	handle_file(int map_fd, t_data *data)
 	analyze_elements(data);
 	if (is_wall(line))
 		handle_map(data, map_fd, line);
-
 }
 
 bool	parser(char **av, t_data *data)

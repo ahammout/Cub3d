@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 20:19:49 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/23 18:57:01 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/06/23 21:14:38 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		newstr[ft_strlen(s1) + i] = s2[i];
 		i++;
 	}
-	free(s1);
 	newstr[ft_strlen(s1) + i] = '\0';
 	return (newstr);
 }
