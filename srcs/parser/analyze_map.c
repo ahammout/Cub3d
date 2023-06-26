@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 02:29:12 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 09:55:54 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/26 08:44:00 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,37 +64,24 @@ int surrounded_map(t_data *data)
     return (0);
 }
 
-
-char    **cut_last_lines(t_data *data)
+void    cut_last_lines(t_data *data)
 {
-    char    **tmp;
     int     i;
-    int     j;
 
     i = ft_2dstrlen(data->map) - 1;
-    j = 0;
     while (empty_line(data->map[i]))
     {
+        free(data->map[i]);
+        data->map[i] = NULL;
         i--;
-        j++;
     }
-    tmp = malloc(sizeof(char *) * (ft_2dstrlen(data->map) - j) + 1);
-    j = 0;
-    while (j <= i)
-    {
-        tmp[j] = ft_strdup(data->map[j]);
-        j++;
-    }
-    tmp[j] = NULL;
-    free_2darray(data);
-    return (tmp);
 }
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 void    analyze_map(t_data *data)
 {
     int i;
 
-    data->map = cut_last_lines(data);
+    cut_last_lines(data);
     i = 0;
     while (data->map[i])
     {

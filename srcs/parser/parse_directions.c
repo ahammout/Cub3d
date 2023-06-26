@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:36:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 11:38:20 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/26 08:44:10 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int check_path(char *line)
     }
     return (path);
 }
-
 
 void parse_directions(t_data *data, char *line, t_info *ptr)
 {

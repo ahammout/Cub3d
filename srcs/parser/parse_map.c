@@ -6,43 +6,11 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 14:08:38 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 09:40:57 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/26 08:44:15 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-void    build_map(t_data *data, char *holder)
-{
-    int     i;
-    int     j;
-    int     s;
-
-    i = 0;
-    s = 0;
-    j = 0;
-    if (holder)
-    {
-        while (holder[i])
-        {
-            if (holder[i] == '\n')
-                s++;
-            i++;
-        }
-        i = 0;
-        data->map = malloc(sizeof(char *) * s + 1);
-        while(holder[i])
-        {
-            if (holder[i] == '\n')
-                i++;
-            data->map[j] = ft_substr(holder + i, 0, find_char(holder + i, '\n'));
-            while (holder[i] != '\n' && holder[i] != '\0')
-                i++;
-            j++;
-        }
-        data->map[j] = NULL;
-    }
-}
 
 int one_player(char *line, int *player)
 {
@@ -113,6 +81,7 @@ void handle_map(t_data *data, int map_fd, char *holder)
             free(to_free);
         i++;
     }
-    build_map(data, holder);
+    if (holder)
+        data->map = ft_split(holder, '\n');
     analyze_map(data);
 }

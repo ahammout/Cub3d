@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 10:46:39 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/26 08:41:52 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void    build_map(t_data *data, char *line);
 char    **get_element(t_data *data, int identifier);
 
 int     surrounded_map(t_data *data);
-char    **cut_last_lines(t_data *data);
+void    cut_last_lines(t_data *data);
 void    analyze_map(t_data *data);
 
 void    free_elements_lst(t_data *data);
