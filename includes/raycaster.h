@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:31:41 by verdant           #+#    #+#             */
-/*   Updated: 2023/06/10 15:32:55 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/26 10:10:06 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ typedef struct s_data t_data;
 
 #define SCREEN_WIDTH 1440
 #define SCREEN_HEIGHT 900
-#define GRID_WIDTH 10
-#define GRID_HEIGHT 10
 #define CELL_SIZE 16
 #define PADDING 1
 #define xOFFSET 0
@@ -37,6 +35,7 @@ typedef struct s_data t_data;
 #define SOU 1
 #define EAS 2
 #define WES 3
+#define BPP 4
 
 typedef enum e_movement
 {
@@ -130,12 +129,28 @@ typedef struct s_pars
 	char				**map;
 } t_pars;
 
+typedef struct s_draw
+{
+	int line_height;
+	int	celling_start;
+	int cube_start;
+	int floor_start;
+	int tex_width;
+	int tex_height;
+	int	tex_x;
+	int	tex_y;
+	double	step;
+	double	tex_pos;
+	uint8_t	*pixelData;
+} t_draw;
+
 typedef struct s_all
 {
 	t_mlxVars	mlxVars;
 	t_player	player;
 	t_ray			ray;
 	t_pars		pars;
+	t_draw		draw;
 	bool			player_drawn;
 } t_all;
 
@@ -164,8 +179,8 @@ void	key_hook(void* param);
 
 void	draw_line(mlx_image_t* image, int x1, int y1, int x2, int y2, uint32_t color);
 void	init_dda_vars(t_ray *ray, t_player *player);
-void	scan_grid_lines(t_ray *ray, t_all *data);
-void	cast_rays(t_all *data, t_ray *ray, t_player *player);
+void	scan_grid_lines(t_ray *ray, t_all *data, char **map);
+void	cast_rays(t_all *data, t_ray *ray, t_player *player, t_mlxVars *mlxVars);
 
 /*			Main				*/
 
@@ -176,5 +191,6 @@ bool			incl_char(char c, char *search_str);
 int				ft_tercenary(int condition, int a, int b);
 uint32_t	pack_color(char **array);
 int				assign_value(char direction);
+uint32_t 	shift_col(uint8_t rgba[]);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:31:26 by verdant           #+#    #+#             */
-/*   Updated: 2023/06/10 15:22:15 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/26 10:09:02 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_tercenary(int condition, int a, int b)
 
 uint32_t	pack_color(char **array)
 {
-	int	rgb[3]; // Does this need to be uint8_t?
+	uint8_t	rgb[3]; // Does this need to be uint8_t?
 	int	i;
 
 	if (!array || !array[0] || !array[1] || !array[2])
@@ -75,5 +75,10 @@ int assign_value(char direction)
 	if (direction == '1')
 		return (1);
 	return (0);
+}
+
+uint32_t shift_col(uint8_t rgba[])
+{
+	return (rgba[0] << 24 | rgba[1] << 16 | rgba[2] << 8 | rgba[3]);
 }
 

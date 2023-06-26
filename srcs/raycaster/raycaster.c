@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:41:43 by verdant           #+#    #+#             */
-/*   Updated: 2023/06/10 15:42:14 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/26 10:11:42 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ void draw_line(mlx_image_t* image, int x1, int y1, int x2, int y2, uint32_t colo
 {
 		int dx = abs(x2 - x1);
 		int dy = abs(y2 - y1);
-		int sx = x1 < x2 ? 1 : -1;
-		int sy = y1 < y2 ? 1 : -1;
+		int sx = ft_tercenary((x1 < x2), 1, -1);
+		int sy = ft_tercenary((y1 < y2), 1, -1);
 		int err = (dx > dy ? dx : -dy) / 2;
 		int e2;
 
-		while (1) {
+		while (1) 
+		{
 				if (x1 < 0 || x1 > SCREEN_WIDTH || y1 < 0 || y1 > SCREEN_HEIGHT)
 					break;
 				mlx_put_pixel(image, x1, y1, color);
@@ -76,11 +77,8 @@ void	init_dda_vars(t_ray *ray, t_player *player)
 
 
 
-void	scan_grid_lines(t_ray *ray, t_all *all)
+void	scan_grid_lines(t_ray *ray, t_all *all, char **map)
 {
-	char **map;
-
-	map = all->pars.map;
 	while (ray->hit == false)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
@@ -98,81 +96,72 @@ void	scan_grid_lines(t_ray *ray, t_all *all)
 		if (map[ray->map_y][ray->map_x] == '1')
 			ray->hit = true;
 	}	
-
 	if (ray->side == HORIZONTAL)
 		ray->direction_tex = ft_tercenary((ray->step_x > 0), EAST, WEST);
 	else
-		ray->direction_tex = ft_tercenary((ray->step_y > 0), SOUTH, NORTH);
-
-	
+		ray->direction_tex = ft_tercenary((ray->step_y > 0), SOUTH, NORTH);	
 	if(ray->side == HORIZONTAL) 
 		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else
 		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 }
 
-void	project_rays(t_ray *ray, t_mlxVars *imgs, t_all *all, int num_ray)
+
+void	calc_draw_vars(t_draw *draw, t_ray *ray, t_player *player, t_all *all)
 {
-	const int	line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
 	const	int	half_screen_height = SCREEN_HEIGHT / 2;
-	int				celling_start;
-	int				cube_start;
-	int				floor_start;
+	double		wall_x;
 	
-	t_player player = all->player;
-
-	celling_start = 0;
-	cube_start = half_screen_height - line_height / 2;
-	if (cube_start < 0)
-		cube_start = 0;
-	floor_start = half_screen_height + line_height / 2;
-	if (floor_start >= SCREEN_HEIGHT)
-		floor_start = SCREEN_HEIGHT - 1;
-	
-	// Draw the ceiling
-	while (celling_start < cube_start)
-		mlx_put_pixel(imgs->ray_img, num_ray, celling_start++, all->pars.celling_color);
-	int texWidth = all->pars.tex_arr[ray->direction_tex]->width;
-	int texHeight = all->pars.tex_arr[ray->direction_tex]->height;
-	
-	// Draw the wall
-	double wall_x;
+	draw->line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
+	draw->celling_start = 0;
+	draw->cube_start = half_screen_height - draw->line_height / 2;
+	if (draw->cube_start < 0)
+		draw->cube_start = 0;
+	draw->floor_start = half_screen_height + draw->line_height / 2;
+	if (draw->floor_start >= SCREEN_HEIGHT)
+		draw->floor_start = SCREEN_HEIGHT - 1;
+	draw->tex_height = all->pars.tex_arr[ray->direction_tex]->height;
+	draw->tex_width = all->pars.tex_arr[ray->direction_tex]->width;
 	if (ray->side == HORIZONTAL)
-		wall_x = player.y_grid + ray->perp_wall_dist * ray->ray_dir_y;
+		wall_x = player->y_grid + ray->perp_wall_dist * ray->ray_dir_y;
 	else
-		wall_x = player.x_grid + ray->perp_wall_dist * ray->ray_dir_x;
+		wall_x = player->x_grid + ray->perp_wall_dist * ray->ray_dir_x;
 	wall_x -= floor(wall_x);
-
-	int texX = (int)(wall_x * (double)texWidth);
+	draw->tex_x = (int)(wall_x * (double)draw->tex_width);
 	if (ray->side == HORIZONTAL && ray->ray_dir_x > 0)
-		texX = texWidth - texX - 1;
+		draw->tex_x = draw->tex_width - draw->tex_x - 1;
 	if (ray->side == VERTICAL && ray->ray_dir_y < 0)
-		texX = texWidth - texX - 1;
-	
-	double step = 1.0 * texHeight / line_height;
-	double texPos = (cube_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
-
-	for (int y = cube_start; y < floor_start; y++)
-	{
-		int texY = (int)texPos & (texHeight - 1);
-		texPos += step;
-		uint8_t *pixelData = all->pars.tex_arr[ray->direction_tex]->pixels;
-		int index = (texY * texWidth + texX) * 4; // 4 bytes per pixel (RGBA)
-		// Extracting the individual color components
-		uint8_t red = pixelData[index];
-		uint8_t green = pixelData[index + 1];
-		uint8_t blue = pixelData[index + 2];
-		uint8_t alpha = pixelData[index + 3];
-		// Combining the color components into a single 32-bit color value
-		uint32_t color = (red << 24) | (green << 16) | (blue << 8) | alpha;
-		mlx_put_pixel(imgs->ray_img, num_ray, y, color);
-	}
-	// Draw the floor
-	while (floor_start < SCREEN_HEIGHT)
-		mlx_put_pixel(imgs->ray_img, num_ray, floor_start++, all->pars.floor_color);	
+		draw->tex_x = draw->tex_width - draw->tex_x - 1;
+	draw->step = 1.0 * draw->tex_height / draw->line_height;
+	draw->tex_pos = (draw->cube_start - SCREEN_HEIGHT / 2 + draw->line_height / 2) * draw->step;
 }
 
-
+void	project_rays(t_ray *ray, t_mlxVars *imgs, t_all *all, int num_ray)
+{	
+	uint8_t		rgba[4];
+	t_draw 		*draw;
+	int				index;
+	int 			i;
+	
+	draw = &all->draw;
+	calc_draw_vars(draw, ray, &all->player, all);
+	while (draw->celling_start < draw->cube_start)
+		mlx_put_pixel(imgs->ray_img, num_ray, draw->celling_start++, all->pars.celling_color);
+	while (draw->cube_start < draw->floor_start)
+	{
+		i = -1;
+		draw->tex_y = (int)draw->tex_pos & (draw->tex_height - 1);
+		draw->tex_pos += draw->step;
+		draw->pixelData = all->pars.tex_arr[ray->direction_tex]->pixels;
+		index = (draw->tex_y * draw->tex_width + draw->tex_x) * BPP;
+		while (i++ < 3)
+			rgba[i] = draw->pixelData[index + i];
+		mlx_put_pixel(imgs->ray_img, num_ray, draw->cube_start, shift_col(rgba));
+		draw->cube_start++;
+	}
+	while (draw->floor_start < SCREEN_HEIGHT)
+		mlx_put_pixel(imgs->ray_img, num_ray, draw->floor_start++, all->pars.floor_color);	
+}
 
 
 /**
@@ -188,7 +177,7 @@ void	project_rays(t_ray *ray, t_mlxVars *imgs, t_all *all, int num_ray)
  * 
  * @note delta Dis is calculated using the Pytagorem Therom and the Thales theoreom
  */
-void	cast_rays(t_all *data, t_ray *ray, t_player *player)
+void	cast_rays(t_all *all, t_ray *ray, t_player *player, t_mlxVars *mlxVars)
 {
 	int						num_ray;
 	
@@ -204,9 +193,10 @@ void	cast_rays(t_all *data, t_ray *ray, t_player *player)
 		ray->map_x = (int)player->x_grid;
 		ray->map_y = (int)player->y_grid;
 		init_dda_vars(ray, player);
-		scan_grid_lines(ray, data);
-		// draw_line(data->mlxVars.minimap_img, player->x_grid * CELL_SIZE, player->y_grid * CELL_SIZE, (player->x_grid * CELL_SIZE) + (ray->ray_dir_x * (ray->perp_wall_dist * CELL_SIZE)), (player->y_grid * CELL_SIZE) + (ray->ray_dir_y * (CELL_SIZE * ray->perp_wall_dist)), 0x00FF00FF);
-		project_rays(ray, &data->mlxVars, data, num_ray);
+		scan_grid_lines(ray, all, all->pars.map);
+		// draw_line(mlxVars->minimap_img)
+		draw_line(all->mlxVars.minimap_img, player->x_grid * CELL_SIZE, player->y_grid * CELL_SIZE, (player->x_grid * CELL_SIZE) + (ray->ray_dir_x * (ray->perp_wall_dist * CELL_SIZE)), (player->y_grid * CELL_SIZE) + (ray->ray_dir_y * (CELL_SIZE * ray->perp_wall_dist)), 0x00FF00FF);
+		project_rays(ray, &all->mlxVars, all, num_ray);
 		num_ray++;
 	}
 }

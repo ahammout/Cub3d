@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/26 08:40:28 by verdant          ###   ########.fr       */
+/*   Updated: 2023/06/26 08:55:40 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int main(int argc, char **argv)
 				return (EXIT_FAILURE);
 		/**/
 		draw_minimap(&all);
-		cast_rays(&all, &all.ray, &all.player);
-		/**/
+		cast_rays(&all, &all.ray, &all.player, &all.mlxVars);
 		mlx_loop_hook(all.mlxVars.mlx, &key_hook, &all);
 		mlx_loop(all.mlxVars.mlx);
+		/**/
 		free_data(&parser_data);
 		printf("Done\n");
 		return (0);

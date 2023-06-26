@@ -29,7 +29,6 @@ bool	init_mlx42(t_mlxVars *mlxVars)
 	return (true);
 }
 
-// Refactor this as soon as I have the parser
 void	init_player(t_all *all, int xDraw, int yDraw, char dir_char)
 {
 	const		double 	arr_fov[4] = {0.66, -0.66, 0.66, -0.66};
@@ -43,7 +42,7 @@ void	init_player(t_all *all, int xDraw, int yDraw, char dir_char)
 	player->y_pixel = (CELL_SIZE / 2) - (player->size / 2) + yDraw;
 	player->color = 0xFFFF00FF; // Yellow
 	player->dir = dir;
-	player->rot_speed = 0.1;
+	player->rot_speed = 0.03;
 	player->move_speed = 0.1;
 	draw_screen_player(&all->mlxVars, player, player->color);
 	player->dir_x = 0;
@@ -85,7 +84,7 @@ bool	init_map_vars(t_data *parser_data, t_pars *map_vars, mlx_t *mlx)
 	char **arr;
 
 	i = 0;
-	while (i < 3)
+	while (i < 4)
 	{
 		arr = get_element(parser_data, dir_arr[i]);
 		if (!arr || !arr[0])
@@ -104,15 +103,26 @@ bool	init_map_vars(t_data *parser_data, t_pars *map_vars, mlx_t *mlx)
 	return (true);
 }
 
+
+// bool draw_init(t_draw *draw)
+// {
+// 	draw->celling_start = 0;
+// 	return (true);
+// }
+
 // Refactor grid variable this as soon as I have the parser from my partner
 bool init_structs(t_all *all, t_data *parser_data)
 {
 	t_pars		map_vars;
+	t_draw		draw_vars;
 
 	if (!init_mlx42(&all->mlxVars) || !init_raycaster(&all->ray))
 		return (false);
 	if (!init_map_vars(parser_data, &map_vars, all->mlxVars.mlx))
 		return (false);
+	// if (!draw_init(&all->draw))
+	// 	return (false);
+	all->draw = draw_vars;
 	all->pars = map_vars;
 	all->player_drawn = false;
 	return (true);
