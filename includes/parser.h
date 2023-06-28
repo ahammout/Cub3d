@@ -50,41 +50,47 @@ typedef struct  s_data
 }               t_data;
 
 bool    parser(char **av, t_data *data);
-void    add_node(t_data *data, int *index_ptr, t_info **ptr);
-int     is_wall (char *line);
+
+//---------------------- HANDLE ELEMENTS -------------------/
+
 void    handle_file(int map_fd, t_data *data);
-void    handle_map(t_data *data, int map_fd, char *holder);
+void    add_node(t_data *data, int *index_ptr, t_info **ptr);
 int     handle_elements(char *line, t_data *data, t_info *ptr);
+void	analyze_elements(t_data *data);
+int     detect_directions(t_data *data, char *line);
+int     is_direction(char c);
 void    parse_directions(t_data *data, char *line, t_info *ptr);
-int     direction_identifier(t_data *data, char *line);
-void    parse_fc(t_data *data, char *line, t_info *ptr);
-int     check_fc(t_data *data, char *line);
 int     check_path(char *line);
-int     direction_handler(char *line);
-int     check_map(char *line);
-int     find_comma(char *line);
-int     get_color(char *line);
-void    build_map(t_data *data, char *line);
 char    **get_element(t_data *data, int identifier);
 
-int     surrounded_map(t_data *data);
-void    cut_last_lines(t_data *data);
+void    parse_fc(t_data *data, char *line, t_info *ptr);
+int     check_fc(t_data *data, char *line);
+int     get_color(char *line);
+int     find_comma(char *line);
+
+//---------------------- HANDLE MAP -------------------/
+int     is_wall(char *line);
+void    handle_map(t_data *data, int map_fd, char *holder);
+int     check_map(char *line);
 void    analyze_map(t_data *data);
+void    cut_empty_lines(t_data *data);
+int     surrounded_map(t_data *data);
 
-void    free_elements_lst(t_data *data);
-void    free_map(t_data *data);
+//---------------------- FREE TOOLS -------------------/
 void    free_data(t_data *data);
-
-
-//////////////////////// Tools ////////////////////////////////
+void    free_map(t_data *data);
+void    free_elements_lst(t_data *data);
+void    free_2darray(t_data *data);
 void    exit_error(t_data *data, int fr, char *err);
-int     find_char(char *str, char c);
+
+
+//---------------------- ADDITIONAL FUNCTIONS -------------------/
 int     is_whitespace(char c);
 int     empty_line(char *str);
 int     all_isdigit(char *str);
 int     ft_2dstrlen(char **str2d);
-void    free_2darray(t_data *data);
-void    free_map_list(t_data *data);
+
+//---------------------- DISPLAY FUNCTIONS -------------------/
 void    display_list(t_info *list);
 void    display_table(char **table);
 

@@ -3,92 +3,105 @@
 /*                                                        :::      ::::::::   */
 /*   analyze_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 02:29:12 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/26 08:44:00 by verdant          ###   ########.fr       */
+/*   Created: 2023/06/18 03:13:33 by ahammout          #+#    #+#             */
+/*   Updated: 2023/06/18 03:34:51 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/parser.h"
+#include"parser.h"
 
-int is_wall (char *line)
+int	is_wall(char *line)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    if (empty_line(line))
-        return (0);
-    while (line[i])
-    {
-        if (line[i] != ' ' && line[i] != '\t' && line[i] != '1' && line[i] != '\n' && line[i] != '\0')
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	if (empty_line(line))
+		return (0);
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' \
+			&& line[i] != '1' && line[i] != '\n' \
+			&& line[i] != '\0')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-int surrounded_map(t_data *data)
+int	check_sides(t_data *data)
 {
-    int x;
-    int y;
+	int	x;
+	int	y;
 
-    y = 1;
-    while (data->map[y + 1])
-    {
-        if ((data->map[y][ft_strlen(data->map[y]) - 1] != '1' \
-            && data->map[y][ft_strlen(data->map[y]) - 1] != ' ') \
-            ||( data->map[y][0] != '1' && data->map[y][0] != ' '))
-                return (-1);
-        y++;
-    }
-    y = 1;
-    while (data->map[y + 1])
-    {
-        x = 0;
-        while (data->map[y][x])
-        {
-            if (data->map[y][x] == '0' || data->map[y][x] == 'E' || data->map[y][x] == 'S' || data->map[y][x] == 'N' || data->map[y][x] == 'W')
-            {
-                // printf("line {%d}\n Up : %c\n down : %c\n left : %c\n Right : %c\n", y, data->map[y - 1][x], data->map[y + 1][x], data->map[y][x - 1], data->map[y][x + 1]);
-                if (!data->map[y - 1][x] || data->map[y - 1][x] == ' ' || data->map[y - 1][x] == '\t' \
-                    || !data->map[y - 1][x] || data->map[y + 1][x] == ' ' || data->map[y + 1][x] == '\t' \
-                    || !data->map[y - 1][x] || data->map[y][x + 1] == ' ' || data->map[y][x + 1] == '\t' \
-                    || !data->map[y - 1][x] || data->map[y][x - 1] == ' ' || data->map[y][x - 1] == '\t')
-                    return (-1);
-            }
-            x++;
-        }
-        y++;
-    }
-    return (0);
+	y = 1;
+	while (data->map[y + 1])
+	{
+		if ((data->map[y][ft_strlen(data->map[y]) - 1] != '1' \
+			&& data->map[y][ft_strlen(data->map[y]) - 1] != ' ') \
+			|| (data->map[y][0] != '1' && data->map[y][0] != ' '))
+			return (-1);
+		y++;
+	}
+	if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]))
+		return (-1);
+	return (0);
 }
 
-void    cut_last_lines(t_data *data)
+int	surrounded_map(t_data *data)
 {
-    int     i;
+	int	x;
+	int	y;
 
-    i = ft_2dstrlen(data->map) - 1;
-    while (empty_line(data->map[i]))
-    {
-        free(data->map[i]);
-        data->map[i] = NULL;
-        i--;
-    }
+	if (check_sides(data) == -1)
+		return (-1);
+	y = 1;
+	while (data->map[y + 1])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] == '0' || is_direction(data->map[y][x]))
+			{
+				if (is_whitespace(data->map[y - 1][x]) \
+					||is_whitespace(data->map[y + 1][x]) \
+					||is_whitespace(data->map[y][x + 1]) \
+					||is_whitespace(data->map[y][x - 1]))
+					return (-1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-void    analyze_map(t_data *data)
-{
-    int i;
 
-    cut_last_lines(data);
-    i = 0;
-    while (data->map[i])
-    {
-        if (empty_line(data->map[i]))
-            exit_error(data, 1, "Cub3d: Empty line inside the map!");
-        i++;
-    }
-    if (!is_wall(data->map[ft_2dstrlen(data->map) - 1]) || surrounded_map(data) == -1)
-        exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
+void	cut_empty_lines(t_data *data)
+{
+	int		i;
+
+	i = ft_2dstrlen(data->map) - 1;
+	while (empty_line(data->map[i]))
+	{
+		free(data->map[i]);
+		data->map[i] = NULL;
+		i--;
+	}
+}
+
+void	analyze_map(t_data *data)
+{
+	int	i;
+
+	cut_empty_lines(data);
+	i = 0;
+	while (data->map[i])
+	{
+		if (empty_line(data->map[i]))
+			exit_error(data, 1, "Cub3d: Empty line inside the map!");
+		i++;
+	}
+	if (surrounded_map(data) == -1)
+		exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
 }

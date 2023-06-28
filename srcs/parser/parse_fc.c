@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_fc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/06 14:36:03 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/10 09:40:57 by verdant          ###   ########.fr       */
+/*   Created: 2023/06/18 03:40:28 by ahammout          #+#    #+#             */
+/*   Updated: 2023/06/28 01:27:42 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include"parser.h"
 
 int get_color(char *line)
 {
@@ -36,6 +36,7 @@ int find_comma(char *line)
     return (i);
 }
 
+///@note This function needs to be optimized
 int check_fc(t_data *data, char *line)
 {
     int i;
