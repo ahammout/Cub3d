@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keyhooks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:27:51 by verdant           #+#    #+#             */
-/*   Updated: 2023/06/26 09:07:22 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/02 20:36:03 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,6 @@ void	key_hook(void* param)
 		rotate_player(player, ROTATE_LEFT,player->rot_speed, all);
 	if (mlx_is_key_down(mlxVars->mlx, MLX_KEY_RIGHT))
 		rotate_player(player, ROTATE_RIGHT,player->rot_speed, all);
-	draw_minimap(all);
+	// draw_minimap(all);
 	cast_rays(all, &all->ray, &all->player, &all->mlxVars);
 }

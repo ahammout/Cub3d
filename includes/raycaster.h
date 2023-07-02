@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:31:41 by verdant           #+#    #+#             */
-/*   Updated: 2023/06/26 10:10:06 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/02 20:35:44 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,9 @@ typedef struct s_pars
 	uint32_t		floor_color;
 	mlx_image_t	*tex_arr[4];
 	char				**map;
+	int					map_width;
+	int					map_height;
+	int					dir_idx;
 } t_pars;
 
 typedef struct s_draw
@@ -161,14 +164,16 @@ typedef struct s_all
 
 bool	init_mlx42(t_mlxVars *mlxVars);
 bool	init_raycaster(t_ray *ray);
-void	init_player(t_all *all, int xDraw, int yDraw, char dir_char);
+void	init_player(t_player *player, int dir, t_all *all);
 bool	init_structs(t_all *data, t_data *parser_data);
 
 /*			Functions to draw stuff				*/
 
-void	draw_minimap_cell(char dir_char, t_mlxVars *mlxVars, int x_pixel, int y_pixel);
-void	draw_screen_player(t_mlxVars *mlxVars, t_player *p, uint32_t color);
-void	draw_minimap(t_all *data);
+// void	draw_minimap_cell(char dir_char, t_mlxVars *mlxVars, int x_pixel, int y_pixel);
+// void	draw_screen_player(t_mlxVars *mlxVars, t_player *p, uint32_t color);
+// void	draw_minimap(t_all *data);
+
+void draw_minimap(char **map, t_pars *pars, t_all *all);
 
 /*			Functions to handle events				*/
 
