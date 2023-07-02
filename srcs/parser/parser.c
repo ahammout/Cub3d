@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 17:55:47 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/23 21:34:06 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/02 17:25:37 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ bool	parser(char **av, t_data *data)
 {
 	int	map_fd;
 
+	if (ft_strnstr(av[1], ".cub", ft_strlen(av[1])) == 0)
+		exit_error(data, 1, "Cub3d: Invalid  map format");
 	map_fd = open(av[1], O_RDONLY);
 	if (map_fd == -1)
 	{
