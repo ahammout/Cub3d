@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:16:29 by verdant           #+#    #+#             */
-/*   Updated: 2023/06/10 15:29:41 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/02 16:55:06 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,11 @@ void draw_screen_player(t_mlxVars *mlxVars, t_player *p, uint32_t color)
 
 
 	
-
+// Refactor this code
+	// The problem is that the lines can be unequally long
+	// So I need to find a way to count the longest line without segfaulting
+	// Then I would like to redesign the function from the ground up
+	// the whole draw_minimap / player_init / draw_player is a mess
 void	draw_minimap(t_all *all)
 {
 	int grid_width;
@@ -71,12 +75,7 @@ void	draw_minimap(t_all *all)
 		grid_width++;
 	while (all->pars.map[grid_height])
 		grid_height++;
-	
 
-
-
-
-	
 	int	x_grid, y_grid, x_pixel, y_pixel;
 
 	y_grid = 0;
