@@ -6,11 +6,67 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 04:46:55 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/27 22:41:01 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:25:40 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"parser.h"
+
+char	*equalize_line(t_data *data, size_t i, size_t l)
+{
+	char	*new_line;
+	int		j;
+	int		sp;
+
+	sp = l - ft_strlen(data->map[i]);
+	new_line = malloc(sizeof (char) * l + 1);
+	j = 0;
+	while (data->map[i][j])
+	{
+		new_line[j] = data->map[i][j];
+		j++;
+	}
+	while(sp > 0)
+	{
+		new_line[j] = ' ';
+		j++;
+		sp--;
+	}
+	new_line[j] = '\0';
+	free(data->map[i]);
+	return (new_line);
+}
+
+size_t	long_line(char **map)
+{
+	size_t i;
+	size_t max;
+
+	i = 1;
+	max = ft_strlen(map[0]);
+	while (map[i])
+	{
+		if (max < ft_strlen(map[i]))
+			max = ft_strlen(map[i]);
+		i++;
+	}
+	return (max);
+}
+
+void	equalize_map(t_data *data)
+{
+	size_t i;
+	size_t	l;
+
+	l = long_line(data->map);
+	i = 0;
+	while (data->map[i])
+	{
+		if (ft_strlen(data->map[i]) != l)
+			data->map[i] = equalize_line(data, i, l);
+		i++;
+	}
+}
 
 int	one_player(char *line, int *player)
 {
@@ -87,4 +143,5 @@ void	handle_map(t_data *data, int map_fd, char *holder)
 		data->map = ft_split(holder, '\n');
 	free(holder);
 	analyze_map(data);
+	equalize_map(data);
 }
