@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/04 07:03:50 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/04 13:00:37 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 		print_map(all.pars.map);
 		/**/
 		draw_minimap(&all, &all.pars, &all.player);
-		// cast_rays(&all, &all.ray, &all.player, &all.mlxVars);
+		cast_rays(&all, &all.ray, &all.player, &all.mlxVars);
 		mlx_loop_hook(all.mlxVars.mlx, &key_hook, &all);
 		mlx_loop(all.mlxVars.mlx);
 		/**/

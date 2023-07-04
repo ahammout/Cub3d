@@ -142,8 +142,6 @@ bool init_structs(t_all *all, t_data *parser_data)
 	if (!init_map_vars(parser_data, &map_vars, all->mlxVars.mlx))
 		return (false);
 	init_player(&all->player, parser_data, all);
-	// if (!draw_init(&all->draw))
-	// 	return (false);
 	all->draw = draw_vars;
 	all->pars = map_vars;
 	return (true);

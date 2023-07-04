@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:16:29 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/04 07:04:48 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/04 13:14:47 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void draw_minimap_cell(char dir_char, t_mlxVars *mlxVars, int x_pixel, int y_pixel)
 {
-  const uint32_t colors[3] = {0xFF0000FF, 0x000000FF, 0xFFFF00FF};
-  uint32_t x;
+	const uint32_t colors[3] = {0xFF0000FF, 0x000000FF, 0xFFFF00FF};
+	uint32_t x;
 	uint32_t y;
-  int idx = assign_value(dir_char);
+	int idx = assign_value(dir_char);
 
-  if (!mlxVars) 
+	if (!mlxVars) 
 		return;
 	x = 0;
-  while (x < CELL_SIZE)
-  {
-      y = 0;
-      while (y < CELL_SIZE)
-      {
-          if (x == 0 || y == 0 || x == CELL_SIZE - 1 || y == CELL_SIZE - 1)
-              mlx_put_pixel(mlxVars->minimap_img, x + x_pixel, y + y_pixel, 0xFFFFFFFF);
-          else
-              mlx_put_pixel(mlxVars->minimap_img, x + x_pixel, y + y_pixel, colors[idx]);
-          y++;
-      }
-      x++;
-  }
+	while (x < CELL_SIZE)
+	{
+			y = 0;
+			while (y < CELL_SIZE)
+			{
+					if (x == 0 || y == 0 || x == CELL_SIZE - 1 || y == CELL_SIZE - 1)
+							mlx_put_pixel(mlxVars->minimap_img, x + x_pixel, y + y_pixel, 0xFFFFFFFF);
+					else
+							mlx_put_pixel(mlxVars->minimap_img, x + x_pixel, y + y_pixel, colors[idx]);
+					y++;
+			}
+			x++;
+	}
 }
 
 void draw_screen_player(t_mlxVars *mlxVars, t_player *p, uint32_t color)
@@ -44,9 +44,9 @@ void draw_screen_player(t_mlxVars *mlxVars, t_player *p, uint32_t color)
 	
 	x = 0;
 	p->size = 4;
-	p->x_pixel = p->x_grid * CELL_SIZE;
+	p->x_pixel = (p->x_grid - 0.5) * CELL_SIZE;
 	p->x_pixel += (CELL_SIZE / 2) - (p->size / 2);
-	p->y_pixel = p->y_grid * CELL_SIZE;
+	p->y_pixel = (p->y_grid - 0.5) * CELL_SIZE;
 	p->y_pixel += (CELL_SIZE / 2) - (p->size / 2);
 	while (x < p->size)
 	{
@@ -70,11 +70,6 @@ void	get_dimension(char **map, t_pars *pars)
 		pars->map_height++;
 }
 	
-// Refactor this code
-	// The problem is that the lines can be unequally long
-	// So I need to find a way to count the longest line without segfaulting
-	// Then I would like to redesign the function from the ground up
-	// the whole draw_minimap / player_init / draw_player is a mess
 void	draw_minimap(t_all *all, t_pars *pars, t_player *player)
 {
 	int	x_grid;
@@ -98,6 +93,6 @@ void	draw_minimap(t_all *all, t_pars *pars, t_player *player)
 		}
 		y_grid++;
 	}
-	draw_screen_player(&all->mlxVars, player, player->color); // Still someting wrong here
+	draw_screen_player(&all->mlxVars, player, player->color);
 }
 
