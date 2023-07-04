@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:31:26 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/04 06:44:22 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/04 15:14:44 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/raycaster.h"
-
 
 /**
  * @brief Checks if a char exits inside of a string
@@ -44,8 +43,8 @@ int	ft_tercenary(int condition, int a, int b)
 
 uint32_t	pack_color(char **array)
 {
-	uint8_t	rgb[3]; // Does this need to be uint8_t?
-	int	i;
+	uint8_t	rgb[3];
+	int		i;
 
 	if (!array || !array[0] || !array[1] || !array[2])
 		return (0);
@@ -57,10 +56,10 @@ uint32_t	pack_color(char **array)
 		rgb[i] = ft_tercenary(rgb[i] > 255, 255, rgb[i]);
 		i++;
 	}
-	return (rgb[0] << 24) | (rgb[1] << 16) | (rgb[2] << 8) | 255;
+	return ((rgb[0] << 24) | (rgb[1] << 16) | (rgb[2] << 8) | 255);
 }
 
-int assign_value(char direction)
+int	assign_value(char direction)
 {
 	if (direction == 'N')
 		return (NOR);
@@ -79,8 +78,7 @@ int assign_value(char direction)
 	return (0);
 }
 
-uint32_t shift_col(uint8_t rgba[])
+uint32_t	shift_col(uint8_t rgba[])
 {
 	return (rgba[0] << 24 | rgba[1] << 16 | rgba[2] << 8 | rgba[3]);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyze_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 03:13:33 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/04 01:07:03 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/04 13:27:34 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	is_wall(char *line)
 
 int	check_sides(t_data *data)
 {
-	int	x;
 	int	y;
 
 	y = 1;

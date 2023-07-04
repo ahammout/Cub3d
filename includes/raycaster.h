@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:31:41 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/04 13:17:18 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/04 15:07:20 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_data t_data;
 
 #define SCREEN_WIDTH 1440
 #define SCREEN_HEIGHT 900
-#define CELL_SIZE 16
+#define CELL_SIZE 8
 #define PADDING 1
 #define xOFFSET 0
 #define yOFFSET 0
@@ -66,7 +66,7 @@ typedef struct s_mlxVars
 {
 	mlx_t				*mlx;
 	mlx_image_t	*ray_img;
-	mlx_image_t	*minimap_img;
+	mlx_image_t	*minimap;
 	mlx_image_t	*texture_img;
 } t_mlxVars;
 
@@ -91,7 +91,7 @@ typedef struct s_player
 	double			dir_y;
 	t_direction dir;
 	u_int32_t	color;
-	u_int32_t	size;
+	int				size;
 	double		rot_speed;
 	double		move_speed;
 } t_player;
@@ -103,8 +103,8 @@ typedef struct s_ray
 	double		plane_y;
 	double		ray_dir_x;
 	double		ray_dir_y;
-	double		delta_dist_x;
-	double		delta_dist_y;
+	double		d_dist_x;
+	double		d_dist_y;
 	double		side_dist_x;
 	double		side_dist_y;
 	int				line_height;
@@ -116,17 +116,15 @@ typedef struct s_ray
 	bool			hit;
 	double		perp_wall_dist;
 	int				direction_tex;
-	
+	uint32_t	color_cil;
+	uint32_t	color_flo;
 } t_ray;
-
 
 typedef struct s_pars
 {
-	uint32_t		celling_color;
+	uint32_t		celling_col;
 	uint32_t		floor_color;
 	mlx_image_t	*tex_arr[4];
-	uint16_t		map_width;
-	uint16_t		map_height; 
 	char				**map;
 	int					map_width;
 	int					map_height;
@@ -136,9 +134,9 @@ typedef struct s_pars
 typedef struct s_draw
 {
 	int line_height;
-	int	celling_start;
+	int	celling;
 	int cube_start;
-	int floor_start;
+	int floor;
 	int tex_width;
 	int tex_height;
 	int	tex_x;
@@ -148,9 +146,22 @@ typedef struct s_draw
 	uint8_t	*pixelData;
 } t_draw;
 
+typedef struct s_line
+{
+	int	x1;
+	int	y1;
+	int	x2;
+	int	y2;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+	int	err_2;
+} t_line;
 typedef struct s_all
 {
-	t_mlxVars	mlxVars;
+	t_mlxVars	mlx_vars;
 	t_player	player;
 	t_ray			ray;
 	t_pars		pars;
@@ -162,27 +173,28 @@ typedef struct s_all
 
 /*			Function to setup, use and clean the MLX relevant Funcs				*/
 
-bool	init_mlx42(t_mlxVars *mlxVars);
-bool	init_raycaster(t_ray *ray);
-void	init_player(t_player *player, t_data *data, t_all *all);
 bool	init_structs(t_all *data, t_data *parser_data);
 
 /*			Functions to draw stuff				*/
 
-void	draw_minimap_cell(char dir_char, t_mlxVars *mlxVars, int x_pixel, int y_pixel);
+void	draw_cell(char dir_char, t_mlxVars *mlxVars, int x_pixel, int y_pixel);
 void	draw_screen_player(t_mlxVars *mlxVars, t_player *p, uint32_t color);
 void	draw_minimap(t_all *all, t_pars *pars, t_player *player);
 
 /*			Functions to handle events				*/
 
-// bool	is_wall_in_world(t_player *player, int new_x, int new_y, t_all *data);
 void	key_hook(void* param);
+
+/*			Utiliy functions for casting rays			*/
+
+void	calc_cube_vars(t_draw *draw, t_ray *ray);
+void	calc_tex_vars(t_draw *draw, t_ray *ray, t_player *player, t_all *all);
 
 /*			Functions to cast Rays				*/
 
-void	draw_line(mlx_image_t* image, int x1, int y1, int x2, int y2, uint32_t color);
+void	draw_line(mlx_image_t *img, t_line line, uint32_t color);
 void	init_dda_vars(t_ray *ray, t_player *player);
-void	scan_grid_lines(t_ray *ray, t_all *data, char **map);
+void	scan_grid_lines(t_ray *ray, char **map);
 void	cast_rays(t_all *data, t_ray *ray, t_player *player, t_mlxVars *mlxVars);
 
 /*			Main				*/
