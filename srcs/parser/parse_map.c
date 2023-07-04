@@ -6,21 +6,11 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 04:46:55 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/04 01:07:43 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:25:40 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"parser.h"
-
-
-///@note There is some changes, you need to check leaks~
-
-///@name equalize_line()
-///@note this function will take a line from the map and return a new version from it.
-///@param data Usage of data inside this function will help in free the line after changing it.
-///@param i This variable is the index of the row inside the map, which is the line needed by the function.
-///@param l This variable is the lenght of the longer line inside the map, this variable used to make the size of all lines equal.
-///@return This function returns a string which is the new line;
 
 char	*equalize_line(t_data *data, size_t i, size_t l)
 {
@@ -46,10 +36,6 @@ char	*equalize_line(t_data *data, size_t i, size_t l)
 	free(data->map[i]);
 	return (new_line);
 }
-
-///@note This function will make all the lines inside the map equal, by adding spaces to all the short lines inside the map. 
-///@a long_line this function is about getting the longest line inside the map.
-///@note don't forget to free after changing the line.
 
 size_t	long_line(char **map)
 {
