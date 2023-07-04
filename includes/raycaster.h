@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:31:41 by verdant           #+#    #+#             */
-/*   Updated: 2023/06/26 10:10:06 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/04 06:49:18 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ typedef struct s_ray
 	t_side		side;
 	bool			hit;
 	double		perp_wall_dist;
-
 	int				direction_tex;
 	
 } t_ray;
@@ -126,6 +125,8 @@ typedef struct s_pars
 	uint32_t		celling_color;
 	uint32_t		floor_color;
 	mlx_image_t	*tex_arr[4];
+	uint16_t		map_width;
+	uint16_t		map_height; 
 	char				**map;
 } t_pars;
 
@@ -151,7 +152,6 @@ typedef struct s_all
 	t_ray			ray;
 	t_pars		pars;
 	t_draw		draw;
-	bool			player_drawn;
 } t_all;
 
 
@@ -161,14 +161,14 @@ typedef struct s_all
 
 bool	init_mlx42(t_mlxVars *mlxVars);
 bool	init_raycaster(t_ray *ray);
-void	init_player(t_all *all, int xDraw, int yDraw, char dir_char);
+void	init_player(t_player *player, t_data *data, t_all *all);
 bool	init_structs(t_all *data, t_data *parser_data);
 
 /*			Functions to draw stuff				*/
 
 void	draw_minimap_cell(char dir_char, t_mlxVars *mlxVars, int x_pixel, int y_pixel);
 void	draw_screen_player(t_mlxVars *mlxVars, t_player *p, uint32_t color);
-void	draw_minimap(t_all *data);
+void	draw_minimap(t_all *all, t_pars *pars, t_player *player);
 
 /*			Functions to handle events				*/
 

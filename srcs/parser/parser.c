@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 17:55:47 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/04 01:05:29 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/04 07:01:47 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,5 @@ bool	parser(char **av, t_data *data)
 	if (!data->map)
 		exit_error(data, 1, "Cub3d: There is no map on file");
 	close(map_fd);
-	// display_list(data->info);
-	// display_table(data->map);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:31:26 by verdant           #+#    #+#             */
-/*   Updated: 2023/06/26 10:09:02 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/04 06:44:22 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int assign_value(char direction)
 		return (0);
 	if (direction == '1')
 		return (1);
+	if (direction == ' ')
+		return (2);
 	return (0);
 }
 

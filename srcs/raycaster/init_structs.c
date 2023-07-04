@@ -29,22 +29,47 @@ bool	init_mlx42(t_mlxVars *mlxVars)
 	return (true);
 }
 
-void	init_player(t_all *all, int xDraw, int yDraw, char dir_char)
-{
-	const		double 	arr_fov[4] = {0.66, -0.66, 0.66, -0.66};
-	const		double 	arr_dir[4] = {-1, 1, 1, -1};
-	const 	int			dir = assign_value(dir_char);
-	t_player	*player;
+// void	init_player(t_all *all, int xDraw, int yDraw, char dir_char)
+// {
+// 	const		double 	arr_fov[4] = {0.66, -0.66, 0.66, -0.66};
+// 	const		double 	arr_dir[4] = {-1, 1, 1, -1};
+// 	const 	int			dir = assign_value(dir_char);
+// 	t_player	*player;
 
-	player = &all->player;
-	player->size = 4;
-	player->x_pixel = (CELL_SIZE / 2) - (player->size / 2) + xDraw;
-	player->y_pixel = (CELL_SIZE / 2) - (player->size / 2) + yDraw;
-	player->color = 0xFFFF00FF; // Yellow
+// 	player = &all->player;
+// 	player->size = 4;
+// 	player->x_pixel = (CELL_SIZE / 2) - (player->size / 2) + xDraw;
+// 	player->y_pixel = (CELL_SIZE / 2) - (player->size / 2) + yDraw;
+// 	player->color = 0xFFFF00FF; // Yellow
+// 	player->dir = dir;
+// 	player->rot_speed = 0.03;
+// 	player->move_speed = 0.1;
+// 	draw_screen_player(&all->mlxVars, player, player->color);
+// 	player->dir_x = 0;
+// 	player->dir_y = 0;
+// 	if (dir == NORTH || dir == SOUTH)
+// 		player->dir_y = arr_dir[dir];
+// 	if (dir == EAST || dir == WEST)
+// 		player->dir_x = arr_dir[dir];
+// 	if (player->dir == NORTH || player->dir == SOUTH)
+// 		all->ray.plane_x = arr_fov[dir];
+// 	if (player->dir == EAST || player->dir == WEST)
+// 		all->ray.plane_y = arr_fov[dir];
+// }
+
+void	init_player(t_player *player, t_data *data, t_all *all)
+{
+	const double	arr_fov[4] = {0.66, -0.66, 0.66, -0.66};
+	const double	arr_dir[4] = {-1, 1, 1, -1};
+	int						dir;
+	
+	player->x_grid = data->p_x + 0.5;
+	player->y_grid = data->p_y + 0.5;
+	dir = assign_value(data->map[data->p_y][data->p_x]);
+	player->color = 0xFFFF00FF;
 	player->dir = dir;
 	player->rot_speed = 0.03;
 	player->move_speed = 0.1;
-	draw_screen_player(&all->mlxVars, player, player->color);
 	player->dir_x = 0;
 	player->dir_y = 0;
 	if (dir == NORTH || dir == SOUTH)
@@ -79,9 +104,10 @@ bool	init_raycaster(t_ray *ray)
 
 bool	init_map_vars(t_data *parser_data, t_pars *map_vars, mlx_t *mlx)
 {
-	const char dir_arr[4] = {'N', 'S', 'W', 'E'};
-	int	i;
-	char **arr;
+	const char	dir_arr[4] = {'N', 'S', 'W', 'E'};
+	char 				**arr;
+	xpm_t				*xpm;
+	int					i;
 
 	i = 0;
 	while (i < 4)
@@ -89,7 +115,7 @@ bool	init_map_vars(t_data *parser_data, t_pars *map_vars, mlx_t *mlx)
 		arr = get_element(parser_data, dir_arr[i]);
 		if (!arr || !arr[0])
 			return (false);
-		xpm_t *xpm = mlx_load_xpm42(arr[0]);
+		xpm = mlx_load_xpm42(arr[0]);
 		if (!xpm)
 			return (false);
 		map_vars->tex_arr[i] = mlx_texture_to_image(mlx, &xpm->texture);
@@ -100,15 +126,10 @@ bool	init_map_vars(t_data *parser_data, t_pars *map_vars, mlx_t *mlx)
 	map_vars->floor_color = pack_color(get_element(parser_data, F));
 	map_vars->celling_color = pack_color(get_element(parser_data, C));
 	map_vars->map = parser_data->map;
+	map_vars->map_width = 0;
+	map_vars->map_height = 0;
 	return (true);
 }
-
-
-// bool draw_init(t_draw *draw)
-// {
-// 	draw->celling_start = 0;
-// 	return (true);
-// }
 
 // Refactor grid variable this as soon as I have the parser from my partner
 bool init_structs(t_all *all, t_data *parser_data)
@@ -120,11 +141,11 @@ bool init_structs(t_all *all, t_data *parser_data)
 		return (false);
 	if (!init_map_vars(parser_data, &map_vars, all->mlxVars.mlx))
 		return (false);
+	init_player(&all->player, parser_data, all);
 	// if (!draw_init(&all->draw))
 	// 	return (false);
 	all->draw = draw_vars;
 	all->pars = map_vars;
-	all->player_drawn = false;
 	return (true);
 }
 
