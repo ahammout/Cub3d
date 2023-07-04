@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:41:43 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/04 15:11:35 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:53:20 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,10 @@ void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, int num_ray)
 		i = -1;
 		draw->tex_y = (int)draw->tex_pos & (draw->tex_height - 1);
 		draw->tex_pos += draw->step;
-		draw->pixelData = all->pars.tex_arr[ray->direction_tex]->pixels;
+		draw->pixel_data = all->pars.tex_arr[ray->direction_tex]->pixels;
 		index = (draw->tex_y * draw->tex_width + draw->tex_x) * BPP;
 		while (i++ < 3)
-			rgba[i] = draw->pixelData[index + i];
+			rgba[i] = draw->pixel_data[index + i];
 		mlx_put_pixel(img, num_ray, draw->cube_start, shift_col(rgba));
 		draw->cube_start++;
 	}
@@ -158,7 +158,7 @@ void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, int num_ray)
  * @note delta Dis is calculated using the 
  * Pytagorem Therom and the Thales theoreom
  */
-void	cast_rays(t_all *all, t_ray *ray, t_player *player, t_mlxVars *mlxVars)
+void	cast_rays(t_all *all, t_ray *ray, t_player *player, t_mlxVars *mlx)
 {
 	t_line				line;
 	int					num_ray;
@@ -180,8 +180,8 @@ void	cast_rays(t_all *all, t_ray *ray, t_player *player, t_mlxVars *mlxVars)
 		line.x2 += (ray->ray_dir_x * (CELL_SIZE * ray->perp_wall_dist));
 		line.y2 = (player->y_grid * CELL_SIZE);
 		line.y2 += (ray->ray_dir_y * (CELL_SIZE * ray->perp_wall_dist));
-		draw_line(mlxVars->minimap, line, 0x00FF00FF);
-		project_rays(ray, mlxVars->ray_img, all, num_ray);
+		draw_line(mlx->minimap, line, 0x00FF00FF);
+		project_rays(ray, mlx->ray_img, all, num_ray);
 		num_ray++;
 	}
 }

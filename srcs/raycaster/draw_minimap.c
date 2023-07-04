@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:16:29 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/04 13:59:00 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/04 16:57:10 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @param color 
  * @note dx and dy stand for draw_x and draw_y
  */
-void	draw_screen_player(t_mlxVars *mlxVars, t_player *p, uint32_t color)
+void	draw_player(t_mlxVars *mlxVars, t_player *p, uint32_t color)
 {
 	int	x;
 	int	y;
@@ -99,12 +99,12 @@ void	draw_minimap(t_all *all, t_pars *pars, t_player *player)
 		x_grid = 0;
 		while (x_grid < pars->map_width)
 		{
-			x_pix = x_grid * CELL_SIZE + xOFFSET;
-			y_pix = y_grid * CELL_SIZE + yOFFSET;
+			x_pix = x_grid * CELL_SIZE + XOFFSET;
+			y_pix = y_grid * CELL_SIZE + YOFFSET;
 			draw_cell(pars->map[y_grid][x_grid], &all->mlx_vars, x_pix, y_pix);
 			x_grid++;
 		}
 		y_grid++;
 	}
-	draw_screen_player(&all->mlx_vars, player, player->color);
+	draw_player(&all->mlx_vars, player, player->color);
 }
