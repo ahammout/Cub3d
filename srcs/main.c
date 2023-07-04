@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/26 08:55:40 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/04 01:05:47 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int main(int argc, char **argv)
 		t_data	parser_data;
 		t_all		all;
 
-		parser_data.map = NULL;
 		if (argc != 2)
 				return (printf("Error\n[USAGE]: ./Cub3d [map location]\n") , -1);
 		parser(argv, &parser_data);

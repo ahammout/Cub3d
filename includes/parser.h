@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:57:53 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/26 08:41:52 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/04 01:05:05 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct  s_data
 {
     t_info   *info;
     char    **map;
+    int     p_x;
+    int     p_y;
 }               t_data;
 
 bool    parser(char **av, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 03:13:33 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/18 03:34:51 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/04 01:07:03 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ int	surrounded_map(t_data *data)
 		x = 0;
 		while (data->map[y][x])
 		{
+			/// This condition will make the function over 25 lines
+			if (data->map[y][x] == 'S' || data->map[y][x] == 'W' \
+				|| data->map[y][x] == 'N' || data->map[y][x] == 'E')
+			{
+				data->p_x = x;
+				data->p_y = y;
+			}
 			if (data->map[y][x] == '0' || is_direction(data->map[y][x]))
 			{
 				if (is_whitespace(data->map[y - 1][x]) \
