@@ -6,7 +6,7 @@
 #    By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 14:50:41 by ahammout          #+#    #+#              #
-#    Updated: 2023/06/10 21:19:43 by ahammout         ###   ########.fr        #
+#    Updated: 2023/06/27 23:56:50 by ahammout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = Cub3d
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 
 INCLUDES = includes/cub3d.h
 
@@ -22,6 +22,7 @@ LIBFT = libft/libft.a
 
 SRCS =	srcs/main.c \
 		srcs/parser.c \
+		srcs/parser2.c \
 		srcs/parse_directions.c \
 		srcs/parse_fc.c \
 		srcs/parser_tools.c \
