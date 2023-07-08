@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:41:43 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/08 16:40:30 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:46:18 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,21 +154,19 @@ int	draw_safely(mlx_image_t *img, int x, int y, uint32_t color)
 	return (y + 1);
 }
 
-void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, int num_ray)
-{	
+void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, t_draw *draw)
+{
 	uint8_t		rgba[4];
-	t_draw		*draw;
 	int			index;
 	int			i;
 
-	draw = &all->draw;
 	calc_cube_vars(draw, ray);
 	calc_tex_vars(draw, ray, &all->player, all);
 	while (draw->celling < draw->cube_start)
-		draw->celling = draw_safely(img, num_ray, draw->celling, ray->color_cil);
+		draw->celling = draw_safely(img, ray->num_ray, draw->celling, ray->color_cil);
 	while (draw->cube_start < draw->floor)
 	{
-		if (check_bounds(num_ray, draw->cube_start))
+		if (check_bounds(ray->num_ray, draw->cube_start))
 		{
 			i = -1;
 			draw->tex_y = (int)draw->tex_pos & (draw->tex_height - 1);
@@ -177,12 +175,12 @@ void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, int num_ray)
 			index = (draw->tex_y * draw->tex_width + draw->tex_x) * BPP;
 			while (i++ < 3)
 				rgba[i] = draw->pixel_data[index + i];
-			mlx_put_pixel(img, num_ray, draw->cube_start, shift_col(rgba));
+			mlx_put_pixel(img, ray->num_ray, draw->cube_start, shift_col(rgba));
 		}
 		draw->cube_start++;
 	}
 	while (draw->floor < SCREEN_HEIGHT)
-		draw->floor = draw_safely(img, num_ray, draw->floor, ray->color_flo);
+		draw->floor = draw_safely(img, ray->num_ray, draw->floor, ray->color_flo);
 }
 
 
@@ -209,13 +207,12 @@ void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, int num_ray)
 void	cast_rays(t_all *all, t_ray *ray, t_player *player, t_mlxVars *mlx)
 {
 	t_line				line;
-	int					num_ray;
 
-	num_ray = 0;
-	while (num_ray < SCREEN_WIDTH)
+	ray->num_ray = 0;
+	while (ray->num_ray < SCREEN_WIDTH)
 	{
 		ray->hit = false;
-		ray->cam_x = 2 * (num_ray) / (double)SCREEN_WIDTH -1;
+		ray->cam_x = 2 * (ray->num_ray) / (double)SCREEN_WIDTH -1;
 		ray->ray_dir_x = player->dir_x + ray->plane_x * ray->cam_x;
 		ray->ray_dir_y = player->dir_y + ray->plane_y * ray->cam_x;
 		ray->d_dist_x = fabs(1 / ray->ray_dir_x);
@@ -229,7 +226,7 @@ void	cast_rays(t_all *all, t_ray *ray, t_player *player, t_mlxVars *mlx)
 		line.y2 = (player->y_grid * CELL_SIZE);
 		line.y2 += (ray->ray_dir_y * (CELL_SIZE * ray->perp_wall_dist));
 		draw_line(mlx->minimap, line, 0x00FF00FF);
-		project_rays(ray, mlx->ray_img, all, num_ray);
-		num_ray++;
+		project_rays(ray, mlx->ray_img, all, &all->draw);
+		ray->num_ray++;
 	}
 }
