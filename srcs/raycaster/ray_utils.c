@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:48:15 by mwilsch           #+#    #+#             */
-/*   Updated: 2023/07/04 15:13:25 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:17:04 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	calc_tex_vars(t_draw *draw, t_ray *ray, t_player *player, t_all *all)
 	if (ray->side == VERTICAL && ray->ray_dir_y < 0)
 		draw->tex_x = draw->tex_width - draw->tex_x - 1;
 	draw->step = 1.0 * draw->tex_height / draw->line_height;
-	draw->tex_pos = (draw->cube_start - SCREEN_HEIGHT / 2);
-	draw->tex_pos += draw->line_height / 2;
+	draw->tex_pos = (draw->cube_start - SCREEN_HEIGHT / 2 
+		+ draw->line_height / 2) * draw->step;
 }
+

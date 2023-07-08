@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:31:41 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/04 16:57:37 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:41:09 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_ray
 	int				step_x;
 	int				step_y;
 	int				direction_tex;
+	// int				num_ray;
 }	t_ray;
 
 typedef struct s_pars

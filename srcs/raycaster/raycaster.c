@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:41:43 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/04 16:53:20 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/08 16:40:30 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,50 @@ void	scan_grid_lines(t_ray *ray, char **map)
 		ray->perp_wall_dist = (ray->side_dist_x - ray->d_dist_x);
 }
 
+
+// void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, int num_ray)
+// {	
+// 	uint8_t		rgba[4];
+// 	t_draw		*draw;
+// 	int			index;
+// 	int			i;
+
+// 	draw = &all->draw;
+// 	calc_cube_vars(draw, ray);
+// 	calc_tex_vars(draw, ray, &all->player, all);
+// 	while (draw->celling < draw->cube_start)
+// 		mlx_put_pixel(img, num_ray, draw->celling++, ray->color_cil);
+// 	while (draw->cube_start < draw->floor)
+// 	{
+// 		i = -1;
+// 		draw->tex_y = (int)draw->tex_pos & (draw->tex_height - 1);
+// 		draw->tex_pos += draw->step;
+// 		draw->pixel_data = all->pars.tex_arr[ray->direction_tex]->pixels;
+// 		index = (draw->tex_y * draw->tex_width + draw->tex_x) * BPP;
+// 		while (i++ < 3)
+// 			rgba[i] = draw->pixel_data[index + i];
+// 		mlx_put_pixel(img, num_ray, draw->cube_start, shift_col(rgba));
+// 		draw->cube_start++;
+// 	}
+// 	while (draw->floor < SCREEN_HEIGHT)
+// 		mlx_put_pixel(img, num_ray, draw->floor++, ray->color_flo);
+// }
+
+bool	check_bounds(int x, int y)
+{
+	if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
+		return (true);
+	return (false);
+}
+
+int	draw_safely(mlx_image_t *img, int x, int y, uint32_t color)
+{
+	
+	if (check_bounds(x, y))
+		mlx_put_pixel(img, x, y, color);
+	return (y + 1);
+}
+
 void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, int num_ray)
 {	
 	uint8_t		rgba[4];
@@ -121,22 +165,26 @@ void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, int num_ray)
 	calc_cube_vars(draw, ray);
 	calc_tex_vars(draw, ray, &all->player, all);
 	while (draw->celling < draw->cube_start)
-		mlx_put_pixel(img, num_ray, draw->celling++, ray->color_cil);
+		draw->celling = draw_safely(img, num_ray, draw->celling, ray->color_cil);
 	while (draw->cube_start < draw->floor)
 	{
-		i = -1;
-		draw->tex_y = (int)draw->tex_pos & (draw->tex_height - 1);
-		draw->tex_pos += draw->step;
-		draw->pixel_data = all->pars.tex_arr[ray->direction_tex]->pixels;
-		index = (draw->tex_y * draw->tex_width + draw->tex_x) * BPP;
-		while (i++ < 3)
-			rgba[i] = draw->pixel_data[index + i];
-		mlx_put_pixel(img, num_ray, draw->cube_start, shift_col(rgba));
+		if (check_bounds(num_ray, draw->cube_start))
+		{
+			i = -1;
+			draw->tex_y = (int)draw->tex_pos & (draw->tex_height - 1);
+			draw->tex_pos += draw->step;
+			draw->pixel_data = all->pars.tex_arr[ray->direction_tex]->pixels;
+			index = (draw->tex_y * draw->tex_width + draw->tex_x) * BPP;
+			while (i++ < 3)
+				rgba[i] = draw->pixel_data[index + i];
+			mlx_put_pixel(img, num_ray, draw->cube_start, shift_col(rgba));
+		}
 		draw->cube_start++;
 	}
 	while (draw->floor < SCREEN_HEIGHT)
-		mlx_put_pixel(img, num_ray, draw->floor++, ray->color_flo);
+		draw->floor = draw_safely(img, num_ray, draw->floor, ray->color_flo);
 }
+
 
 /**
  * @brief 
