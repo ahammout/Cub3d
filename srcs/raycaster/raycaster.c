@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:41:43 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/09 17:10:49 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 17:12:41 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, t_draw *d)
 	calc_cube_vars(d, ray);
 	calc_tex_vars(d, ray, &all->player, all);
 	while (d->celling < d->cube_start)
-		d->celling = d_safely(img, ray->num_ray, d->celling, ray->color_cil);
+		d->celling = draw_safely(img, ray->num_ray, d->celling, ray->color_cil);
 	while (d->cube_start < d->floor)
 	{
 		if (check_bounds(ray->num_ray, d->cube_start))
