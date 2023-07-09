@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 15:16:29 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/09 16:55:38 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 17:02:51 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	get_dimension(char **map, t_pars *pars, t_mlxVars *mlx)
 {
 	const int	width = mlx->minimap->width;
 	const int	height = mlx->minimap->height;
-	
+
 	if (pars->map_height != 0)
 		return ;
 	while (map[pars->map_height][pars->map_width])

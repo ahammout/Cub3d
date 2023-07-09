@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:00:11 by mwilsch           #+#    #+#             */
-/*   Updated: 2023/07/09 16:57:34 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 17:03:13 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ bool	init_mlx42(t_mlxVars *mlx_vars)
 	mlx_vars->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cube3D", true);
 	if (!mlx_vars->mlx)
 		return (false);
-	mlx_vars->ray_img = mlx_new_image(mlx_vars->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	mlx_vars->ray = mlx_new_image(mlx_vars->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	mlx_vars->minimap = mlx_new_image(mlx_vars->mlx, 512, 512);
-	if (!mlx_vars->ray_img || !mlx_vars->minimap)
+	if (!mlx_vars->ray || !mlx_vars->minimap)
 		return (false);
-	mlx_image_to_window(mlx_vars->mlx, mlx_vars->ray_img, 0, 0);
+	mlx_image_to_window(mlx_vars->mlx, mlx_vars->ray, 0, 0);
 	mlx_image_to_window(mlx_vars->mlx, mlx_vars->minimap, 0, 0);
 	mlx_set_instance_depth(mlx_vars->minimap->instances, 1);
 	mlx_vars->c_size = 8;

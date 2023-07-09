@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:31:41 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/09 16:55:44 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 17:12:08 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef enum e_side
 
 typedef struct s_mlxVars
 {
-	mlx_image_t	*ray_img;
+	mlx_image_t	*ray;
 	mlx_image_t	*minimap;
 	mlx_image_t	*texture_img;
 	mlx_t		*mlx;
@@ -199,6 +199,8 @@ void			cast_rays(t_all *data, t_ray *ray, t_player *p, t_mlxVars *mlx);
 uint32_t		pack_color(char **array);
 uint32_t		shift_col(uint8_t rgba[]);
 bool			incl_char(char c, char *search_str);
+bool			check_bounds(int x, int y);
+int				draw_safely(mlx_image_t *img, int x, int y, uint32_t color);
 int				ft_tercenary(int condition, int a, int b);
 int				assign_value(char direction);
 

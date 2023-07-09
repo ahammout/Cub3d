@@ -6,11 +6,25 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:27:51 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/09 16:50:40 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 17:10:03 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycaster.h"
+
+bool	check_bounds(int x, int y)
+{
+	if (x >= 0 && x < SCREEN_WIDTH && y >= 0 && y < SCREEN_HEIGHT)
+		return (true);
+	return (false);
+}
+
+int	draw_safely(mlx_image_t *img, int x, int y, uint32_t color)
+{
+	if (check_bounds(x, y))
+		mlx_put_pixel(img, x, y, color);
+	return (y + 1);
+}
 
 void	move_player(t_player *player, t_move move, double speed, char **map)
 {
