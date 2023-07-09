@@ -6,24 +6,25 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:00:11 by mwilsch           #+#    #+#             */
-/*   Updated: 2023/07/04 15:15:11 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 16:43:43 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/raycaster.h"
 
-bool	init_mlx42(t_mlxVars *mlxVars)
+bool	init_mlx42(t_mlxVars *mlx_vars)
 {
-	mlxVars->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cube3D", true);
-	if (!mlxVars->mlx)
+	mlx_vars->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Cube3D", true);
+	if (!mlx_vars->mlx)
 		return (false);
-	mlxVars->ray_img = mlx_new_image(mlxVars->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	mlxVars->minimap = mlx_new_image(mlxVars->mlx, 1024, 1024);
-	if (!mlxVars->ray_img || !mlxVars->minimap)
+	mlx_vars->ray_img = mlx_new_image(mlx_vars->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	mlx_vars->minimap = mlx_new_image(mlx_vars->mlx, 1024, 1024);
+	if (!mlx_vars->ray_img || !mlx_vars->minimap)
 		return (false);
-	mlx_image_to_window(mlxVars->mlx, mlxVars->ray_img, 0, 0);
-	mlx_image_to_window(mlxVars->mlx, mlxVars->minimap, 0, 0);
-	mlx_set_instance_depth(mlxVars->minimap->instances, 1);
+	mlx_image_to_window(mlx_vars->mlx, mlx_vars->ray_img, 0, 0);
+	mlx_image_to_window(mlx_vars->mlx, mlx_vars->minimap, 0, 0);
+	mlx_set_instance_depth(mlx_vars->minimap->instances, 1);
+	mlx_vars->cell_size = 16;
 	return (true);
 }
 
@@ -70,6 +71,7 @@ bool	init_raycaster(t_ray *ray, t_draw *draw)
 	ray->step_x = 0;
 	ray->step_y = 0;
 	ray->hit = false;
+	ray->num_ray = 0;
 	draw->celling = 0;
 	return (true);
 }

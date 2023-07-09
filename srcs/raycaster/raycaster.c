@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:41:43 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/08 16:46:18 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 16:23:12 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,8 +207,9 @@ void	project_rays(t_ray *ray, mlx_image_t *img, t_all *all, t_draw *draw)
 void	cast_rays(t_all *all, t_ray *ray, t_player *player, t_mlxVars *mlx)
 {
 	t_line				line;
-
-	ray->num_ray = 0;
+	int						size;
+	
+	size = mlx->cell_size;
 	while (ray->num_ray < SCREEN_WIDTH)
 	{
 		ray->hit = false;
@@ -219,12 +220,12 @@ void	cast_rays(t_all *all, t_ray *ray, t_player *player, t_mlxVars *mlx)
 		ray->d_dist_y = fabs(1 / ray->ray_dir_y);
 		init_dda_vars(ray, player);
 		scan_grid_lines(ray, all->pars.map);
-		line.x1 = player->x_grid * CELL_SIZE;
-		line.y1 = player->y_grid * CELL_SIZE;
-		line.x2 = (player->x_grid * CELL_SIZE);
-		line.x2 += (ray->ray_dir_x * (CELL_SIZE * ray->perp_wall_dist));
-		line.y2 = (player->y_grid * CELL_SIZE);
-		line.y2 += (ray->ray_dir_y * (CELL_SIZE * ray->perp_wall_dist));
+		line.x1 = player->x_grid * size;
+		line.y1 = player->y_grid * size;
+		line.x2 = (player->x_grid * size);
+		line.x2 += (ray->ray_dir_x * (size * ray->perp_wall_dist));
+		line.y2 = (player->y_grid * size);
+		line.y2 += (ray->ray_dir_y * (size * ray->perp_wall_dist));
 		draw_line(mlx->minimap, line, 0x00FF00FF);
 		project_rays(ray, mlx->ray_img, all, &all->draw);
 		ray->num_ray++;

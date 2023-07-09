@@ -6,16 +6,11 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/04 13:59:53 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 16:39:53 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycaster.h"
-
-// 1. Fix Minimap
-// 2. Norm code
-// 3. Ask chatgpt how to check for leaks
-// 4. Ask chatgpt how to check for performance
 
 int	main(int argc, char **argv)
 {

@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 14:31:41 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/08 16:45:27 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 16:22:59 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_data	t_data;
 
 # define SCREEN_WIDTH 1440
 # define SCREEN_HEIGHT 900
-# define CELL_SIZE 8
+// # define CELL_SIZE 8
 # define PADDING 1
 # define XOFFSET 0
 # define YOFFSET 0
@@ -67,6 +67,7 @@ typedef struct s_mlxVars
 	mlx_image_t	*minimap;
 	mlx_image_t	*texture_img;
 	mlx_t		*mlx;
+	int				cell_size;
 }	t_mlxVars;
 
 /**
@@ -166,6 +167,7 @@ typedef struct s_all
 	t_pars			pars;
 	t_draw			draw;
 	t_ray			ray;
+	
 }	t_all;
 
 /*			Function to setup, use and clean the MLX funcs				*/
