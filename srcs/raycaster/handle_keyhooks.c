@@ -6,7 +6,7 @@
 /*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:27:51 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/08 16:28:13 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/09 16:50:40 by mwilsch          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	move_player(t_player *player, t_move move, double speed, char **map)
 		new_x = player->x_grid + player->dir_x * speed * arr[move];
 		new_y = player->y_grid + player->dir_y * speed * arr[move];
 	}
-	if (move == LEFT)
+	if (move == RIGHT)
 	{
 		new_x = player->x_grid - player->dir_y * speed;
 		new_y = player->y_grid + player->dir_x * speed;
 	}
-	if (move == RIGHT)
+	if (move == LEFT)
 	{
 		new_x = player->x_grid + player->dir_y * speed;
 		new_y = player->y_grid - player->dir_x * speed;
