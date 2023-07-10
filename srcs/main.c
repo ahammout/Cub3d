@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/10 02:39:49 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/10 05:29:28 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // 2. Norm code
 // 3. Ask chatgpt how to check for leaks
 // 4. Ask chatgpt how to check for performance
+// 5. Ready to eval
 
 int	main(int argc, char **argv)
 {
