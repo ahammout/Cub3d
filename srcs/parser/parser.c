@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 17:55:47 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/04 13:17:39 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/10 05:19:03 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	handle_elements(char *line, t_data *data, t_info *ptr)
 	else if (!empty_line(line + i))
 	{
 		data->info = ptr;
-		exit_error(data, 1, "Cub3d: Invalid identifier or path");
+		exit_error(data, 1, "Cub3d: Invalid identifier or path\n");
 	}
 	return (0);
 }
@@ -105,12 +105,12 @@ bool	parser(char **av, t_data *data)
 		exit (EXIT_FAILURE);
 	}
 	if (ft_strnstr(av[1], ".cub", ft_strlen(av[1])) == 0)
-		exit_error(data, 1, "Cub3d: Invalid  map format");
+		exit_error(data, 1, "Cub3d: Invalid map format\n");
 	handle_file(map_fd, data);
 	if (!data->info)
-		exit_error(data, 1, "Cub3d: There is no elements on the file");
+		exit_error(data, 1, "Cub3d: There is no elements on the file\n");
 	if (!data->map)
-		exit_error(data, 1, "Cub3d: There is no map on file");
+		exit_error(data, 1, "Cub3d: There is no map on file\n");
 	close(map_fd);
 	return (true);
 }

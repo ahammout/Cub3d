@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyze_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 03:13:33 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/04 13:27:34 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/10 05:20:19 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,15 @@ int	is_wall(char *line)
 		i++;
 	}
 	return (1);
+}
+
+void	detect_player(t_data *data, char c, int x, int y)
+{
+	if (c == 'S' || c == 'W' || c == 'N' || c == 'E')
+	{
+		data->p_x = x;
+		data->p_y = y;
+	}
 }
 
 int	check_sides(t_data *data)
@@ -61,13 +70,7 @@ int	surrounded_map(t_data *data)
 		x = 0;
 		while (data->map[y][x])
 		{
-			/// This condition will make the function over 25 lines
-			if (data->map[y][x] == 'S' || data->map[y][x] == 'W' \
-				|| data->map[y][x] == 'N' || data->map[y][x] == 'E')
-			{
-				data->p_x = x;
-				data->p_y = y;
-			}
+			detect_player(data, data->map[y][x], x, y);
 			if (data->map[y][x] == '0' || is_direction(data->map[y][x]))
 			{
 				if (is_whitespace(data->map[y - 1][x]) \
@@ -83,9 +86,9 @@ int	surrounded_map(t_data *data)
 	return (0);
 }
 
-void	cut_empty_lines(t_data *data)
+void	analyze_map(t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = ft_2dstrlen(data->map) - 1;
 	while (empty_line(data->map[i]))
@@ -94,20 +97,13 @@ void	cut_empty_lines(t_data *data)
 		data->map[i] = NULL;
 		i--;
 	}
-}
-
-void	analyze_map(t_data *data)
-{
-	int	i;
-
-	cut_empty_lines(data);
 	i = 0;
 	while (data->map[i])
 	{
 		if (empty_line(data->map[i]))
-			exit_error(data, 1, "Cub3d: Empty line inside the map!");
+			exit_error(data, 1, "Cub3d: Empty line inside the map!\n");
 		i++;
 	}
 	if (surrounded_map(data) == -1)
-		exit_error(data, 1, "Cub3d: Map must be souronded by Walls");
+		exit_error(data, 1, "Cub3d: Map must be sourronded by Walls\n");
 }

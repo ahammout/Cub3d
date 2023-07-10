@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 03:38:44 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/18 03:39:50 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/10 03:39:08 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void	parse_directions(t_data *data, char *line, t_info *ptr)
 	if (check_path(line) != 1)
 	{
 		data->info = ptr;
-		exit_error(data, 1, "Cub3d: Invalid identifier or path");
+		exit_error(data, 1, "Cub3d: Invalid identifier or path\n");
 	}
 	path = open_path(line);
 	if (path == NULL)
-		exit_error(data, 1, "Cub3d: No such file");
+		exit_error(data, 1, "Cub3d: Invalid texture file\n");
 	data->info->elem = malloc(sizeof(char *) * 2);
 	data->info->elem[0] = ft_strdup(path);
 	data->info->elem[1] = NULL;

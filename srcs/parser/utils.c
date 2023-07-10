@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 21:34:40 by ahammout          #+#    #+#             */
-/*   Updated: 2023/06/25 17:53:48 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/10 05:16:31 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,6 @@ int	ft_2dstrlen(char **str2d)
 	while (str2d[i])
 		i++;
 	return (i);
-}
-
-void	free_2darray(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (data->map)
-	{
-		while (data->map[i])
-		{
-			free(data->map[i]);
-			i++;
-		}
-		free(data->map);
-	}
-	data->map = NULL;
 }
 
 int	empty_line(char *str)
@@ -78,37 +61,3 @@ int	all_isdigit(char *str)
 	}
 	return (1);
 }
-
-// void	display_list(t_info *list)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	printf ("\n/--------------- COMPS LIST -------------------/\n");
-// 	while (list->next)
-// 	{
-// 		j = 0;
-// 		while (list->elem[j])
-// 		{
-// 			printf("NODE [%d]	: ", i);
-// 			printf("Type - %d -: %s\n", list->type, list->elem[j]);
-// 			j++;
-// 		}
-// 		list = list->next;
-// 		i++;
-// 	}
-// }
-
-// void	display_table(char **table)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	printf ("\n/--------------- MAP ARRAY -------------------/\n");
-// 	while (table[i])
-// 	{
-// 		printf ("%s\n", table[i]);
-// 		i++;
-// 	}	 
-// }

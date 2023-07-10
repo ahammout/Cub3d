@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+         #
+#    By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/28 14:50:41 by ahammout          #+#    #+#              #
-#    Updated: 2023/07/04 13:26:34 by mwilsch          ###   ########.fr        #
+#    Updated: 2023/07/10 01:04:18 by ahammout         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRC_DIR := srcs/
 OBJ_DIR := obj/
 CC 		:= gcc
 CFLAGS := -Wunreachable-code -Ofast -Wall -Wextra -Werror
-LIBPATH  :=  -L/Users/mwilsch/.brew/opt/glfw/lib -lglfw
+LIBPATH  :=	-L/Users/ahammout/goinfre/homebrew/opt/glfw/lib -lglfw 
+# LIBPATH  :=  -L/Users/mwilsch/.brew/opt/glfw/lib -lglfw
 # LIBPATH  := -L/opt/homebrew/opt/glfw/lib -lglfw
 MACOS := -framework Cocoa -framework OpenGL -framework IOKit
 MLXFLAGS := $(MLX42) $(MACOS)  $(LIBPATH) -ldl -pthread -lm

@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 04:46:55 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/04 01:25:40 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/10 04:50:40 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*equalize_line(t_data *data, size_t i, size_t l)
 		new_line[j] = data->map[i][j];
 		j++;
 	}
-	while(sp > 0)
+	while (sp > 0)
 	{
 		new_line[j] = ' ';
 		j++;
@@ -37,33 +37,24 @@ char	*equalize_line(t_data *data, size_t i, size_t l)
 	return (new_line);
 }
 
-size_t	long_line(char **map)
-{
-	size_t i;
-	size_t max;
-
-	i = 1;
-	max = ft_strlen(map[0]);
-	while (map[i])
-	{
-		if (max < ft_strlen(map[i]))
-			max = ft_strlen(map[i]);
-		i++;
-	}
-	return (max);
-}
-
 void	equalize_map(t_data *data)
 {
-	size_t i;
-	size_t	l;
+	size_t	i;
+	size_t	long_;
 
-	l = long_line(data->map);
+	i = 1;
+	long_ = ft_strlen(data->map[0]);
+	while (data->map[i])
+	{
+		if (long_ < ft_strlen(data->map[i]))
+			long_ = ft_strlen(data->map[i]);
+		i++;
+	}
 	i = 0;
 	while (data->map[i])
 	{
-		if (ft_strlen(data->map[i]) != l)
-			data->map[i] = equalize_line(data, i, l);
+		if (ft_strlen(data->map[i]) != long_)
+			data->map[i] = equalize_line(data, i, long_);
 		i++;
 	}
 }
@@ -83,7 +74,7 @@ int	one_player(char *line, int *player)
 			i++;
 		}
 		if (*player > 1)
-			return (ft_putstr_fd("Cub3d: Multiple players", 2), -1);
+			return (ft_putstr_fd("Cub3d: Multiple players\n", 2), -1);
 	}
 	return (0);
 }
@@ -108,7 +99,7 @@ int	check_map(char *line)
 			j++;
 		}
 		if (!comps[j])
-			return (ft_putstr_fd("Cub3d: Invalid comp", 2), -1);
+			return (ft_putstr_fd("Cub3d: Invalid comp\n", 2), -1);
 		i++;
 	}
 	free(comps);
@@ -120,10 +111,8 @@ void	handle_map(t_data *data, int map_fd, char *holder)
 	char	*line;
 	int		player;
 	char	*to_free;
-	int		i;
 
 	line = ft_strdup("");
-	i = 0;
 	player = 0;
 	while (line)
 	{
@@ -135,10 +124,9 @@ void	handle_map(t_data *data, int map_fd, char *holder)
 		holder = ft_strjoin(holder, line);
 		if (line)
 			free(to_free);
-		i++;
 	}
 	if (player == 0)
-		exit_error(data, 1, "Cub3d: The player is missing!");
+		exit_error(data, 1, "Cub3d: The player is missing!\n");
 	if (holder)
 		data->map = ft_split(holder, '\n');
 	free(holder);
