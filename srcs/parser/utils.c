@@ -12,6 +12,23 @@
 
 #include"parser.h"
 
+int	check_extension(char *path)
+{
+	int		i;
+
+	i = 0;
+	while (path[i])
+	{
+		if (path[i] == '.')
+		{
+			if (ft_strcmp(path + i, ".cub") == 0)
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	is_whitespace(char c)
 {
 	if (!c || c == ' ' || c == '\t')
@@ -60,4 +77,38 @@ int	all_isdigit(char *str)
 		i++;
 	}
 	return (1);
+}
+
+void	display_list(t_info *list)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	printf ("\n/--------------- COMPS LIST -------------------/\n");
+	while (list->next)
+	{
+		j = 0;
+		while (list->elem[j])
+		{
+			printf("NODE [%d]	: ", i);
+			printf("Type - %d -: %s\n", list->type, list->elem[j]);
+			j++;
+		}
+		list = list->next;
+		i++;
+	}
+}
+
+void	display_table(char **table)
+{
+	int i;
+
+	i = 0;
+	printf ("\n/--------------- MAP ARRAY -------------------/\n");
+	while (table[i])
+	{
+		printf ("%s\n", table[i]);
+		i++;
+	}	 
 }

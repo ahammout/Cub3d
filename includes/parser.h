@@ -80,6 +80,8 @@ void	free_elements_lst(t_data *data);
 void	exit_error(t_data *data, int fr, char *err);
 
 //---------------------- UTILS -------------------/
+int		check_extension(char *path);
+void	display_table(char **table);
 int		is_whitespace(char c);
 int		empty_line(char *str);
 int		all_isdigit(char *str);

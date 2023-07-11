@@ -93,6 +93,8 @@ void	handle_file(int map_fd, t_data *data)
 		handle_map(data, map_fd, line);
 }
 
+
+
 bool	parser(char **av, t_data *data)
 {
 	int	map_fd;
@@ -104,7 +106,7 @@ bool	parser(char **av, t_data *data)
 		perror("Cub3d");
 		exit (EXIT_FAILURE);
 	}
-	if (ft_strnstr(av[1], ".cub", ft_strlen(av[1])) == 0)
+	if (check_extension(av[1]) == 0)
 		exit_error(data, 1, "Cub3d: Invalid map format\n");
 	handle_file(map_fd, data);
 	if (!data->info)

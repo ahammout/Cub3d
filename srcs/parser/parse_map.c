@@ -79,6 +79,8 @@ int	one_player(char *line, int *player)
 	return (0);
 }
 
+///@note Add something Gease[Space / tab] to all empty lines inside the map, then handle those line in the analyzer map.
+
 int	check_map(char *line)
 {
 	char	*comps;
@@ -106,6 +108,8 @@ int	check_map(char *line)
 	return (0);
 }
 
+///@note Function over than 25 lines
+
 void	handle_map(t_data *data, int map_fd, char *holder)
 {
 	char	*line;
@@ -118,6 +122,11 @@ void	handle_map(t_data *data, int map_fd, char *holder)
 	{
 		free(line);
 		line = get_next_line(map_fd);
+		if (line && empty_line(line))
+		{
+			free(line);
+			line = ft_strdup(" \n");
+		}
 		if (check_map(line) == -1 || one_player(line, &player) == -1)
 			exit_error(data, 1, NULL);
 		to_free = holder;
