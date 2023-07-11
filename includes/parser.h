@@ -6,7 +6,7 @@
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 04:56:26 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/10 05:16:51 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:25:39 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int		find_comma(char *line);
 //---------------------- HANDLE MAP -------------------/
 int		is_wall(char *line);
 void	handle_map(t_data *data, int map_fd, char *holder);
+void	check_empty_line(char **line);
 int		check_map(char *line);
 void	analyze_map(t_data *data);
 int		surrounded_map(t_data *data);
@@ -81,7 +82,6 @@ void	exit_error(t_data *data, int fr, char *err);
 
 //---------------------- UTILS -------------------/
 int		check_extension(char *path);
-void	display_table(char **table);
 int		is_whitespace(char c);
 int		empty_line(char *str);
 int		all_isdigit(char *str);

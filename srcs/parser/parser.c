@@ -93,8 +93,6 @@ void	handle_file(int map_fd, t_data *data)
 		handle_map(data, map_fd, line);
 }
 
-
-
 bool	parser(char **av, t_data *data)
 {
 	int	map_fd;

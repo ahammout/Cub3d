@@ -1,63 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/23 21:34:40 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/11 22:30:35 by ahammout         ###   ########.fr       */
+/*   Created: 2023/07/11 22:23:35 by ahammout          #+#    #+#             */
+/*   Updated: 2023/07/11 22:30:06 by ahammout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"parser.h"
 
-int	is_whitespace(char c)
+void	check_empty_line(char **line)
 {
-	if (!c || c == ' ' || c == '\t')
-		return (1);
-	return (0);
-}
-
-int	ft_2dstrlen(char **str2d)
-{
-	int	i;
-
-	i = 0;
-	if (!str2d)
-		return (i);
-	while (str2d[i])
-		i++;
-	return (i);
-}
-
-int	empty_line(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str)
+	if (*line && empty_line(*line))
 	{
-		while (str[i])
+		free(*line);
+		*line = ft_strdup(" \n");
+	}
+}
+
+int	check_extension(char *path)
+{
+	int		i;
+
+	i = 0;
+	while (path[i])
+	{
+		if (path[i] == '.')
 		{
-			if (ft_isprint(str[i]))
-				return (0);
-			i++;
+			if (ft_strcmp(path + i, ".cub") == 0)
+				return (1);
 		}
-	}
-	return (1);
-}
-
-int	all_isdigit(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]))
-			return (0);
 		i++;
 	}
-	return (1);
+	return (0);
 }
