@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:00:11 by mwilsch           #+#    #+#             */
-/*   Updated: 2023/07/09 17:03:13 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/10 20:57:33 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ bool	init_map_vars(t_data *parser, t_pars *map_vars, mlx_t *mlx, t_ray *ray)
 		map_vars->tex_arr[i] = mlx_texture_to_image(mlx, &xpm->texture);
 		if (!map_vars->tex_arr[i])
 			return (false);
+		mlx_delete_xpm42(xpm);
 		i++;
 	}
 	ray->color_flo = pack_color(get_element(parser, F));

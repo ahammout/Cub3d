@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_keyhooks.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mwilsch <mwilsch@student.42.fr>            +#+  +:+       +#+        */
+/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:27:51 by verdant           #+#    #+#             */
-/*   Updated: 2023/07/09 17:10:03 by mwilsch          ###   ########.fr       */
+/*   Updated: 2023/07/10 20:44:52 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,14 @@ void	key_hook(void *param)
 	mlx_vars = &all->mlx_vars;
 	player = &all->player;
 	if (mlx_is_key_down(mlx_vars->mlx, MLX_KEY_Q))
-		return (mlx_close_window(all->mlx_vars.mlx));
+	{
+		// mlx_delete_image(mlx_vars->mlx, mlx_vars->ray);
+		// mlx_delete_image(mlx_vars->mlx, mlx_vars->minimap);
+		// mlx_delete_image(mlx_vars->mlx, mlx_vars->texture_img);
+		// mlx_delete_image(mlx_vars->mlx, &all->pars.tex_arr[0].img);
+		mlx_close_window(all->mlx_vars.mlx);
+		return ;
+	}
 	if (mlx_is_key_down(mlx_vars->mlx, MLX_KEY_W))
 		move_player(player, FORWARD, player->move_speed, all->pars.map);
 	if (mlx_is_key_down(mlx_vars->mlx, MLX_KEY_S))
