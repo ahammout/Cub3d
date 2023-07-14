@@ -6,7 +6,7 @@
 /*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:00:11 by mwilsch           #+#    #+#             */
-/*   Updated: 2023/07/10 20:57:33 by verdant          ###   ########.fr       */
+/*   Updated: 2023/07/14 18:56:15 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ bool	init_map_vars(t_data *parser, t_pars *map_vars, mlx_t *mlx, t_ray *ray)
 	xpm_t		*xpm;
 	int			i;
 
-	i = 0;
-	while (i < 4)
+	i = -1;
+	while (i++ < 3)
 	{
 		arr = get_element(parser, dir_arr[i]);
 		if (!arr || !arr[0])
@@ -95,7 +95,6 @@ bool	init_map_vars(t_data *parser, t_pars *map_vars, mlx_t *mlx, t_ray *ray)
 		if (!map_vars->tex_arr[i])
 			return (false);
 		mlx_delete_xpm42(xpm);
-		i++;
 	}
 	ray->color_flo = pack_color(get_element(parser, F));
 	ray->color_cil = pack_color(get_element(parser, C));

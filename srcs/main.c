@@ -3,25 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahammout <ahammout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: verdant <verdant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/28 14:56:01 by ahammout          #+#    #+#             */
-/*   Updated: 2023/07/11 22:29:51 by ahammout         ###   ########.fr       */
+/*   Updated: 2023/07/14 18:58:59 by verdant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycaster.h"
-
-// void	f(){
-// 	system("leaks cub3D");
-// }
 
 int	main(int argc, char **argv)
 {
 	t_data	parser_data;
 	t_all	all;
 
-	// atexit(f);
 	if (argc != 2)
 		return (printf("Error\n[USAGE]: ./Cub3d [map location]\n"), -1);
 	parser(argv, &parser_data);
